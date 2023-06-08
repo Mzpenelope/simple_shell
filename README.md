@@ -1,8 +1,11 @@
+```
 SSSSS H H EEEEE L L
 S H H E L L
 SSSSS HHHHHHHH EEEE L L
 S H H E L L
 SSSSS H H EEEEE LLLLL LLLLL
+```
+
 # ALX Shell Project
 
 Welcome to the ALX Shell Project! This project, developed by Phillipa Aidoo and Rosina Antwi, is a command-line shell implementation built as part of our coursework at ALX Software Engineering School. The ALX Shell Project aims to provide a user-friendly and efficient shell environment for executing commands and managing a variety of tasks.
