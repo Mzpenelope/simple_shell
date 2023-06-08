@@ -9,19 +9,19 @@
 
 # ALX Shell Project
 
-Welcome to the ALX Shell Project! This project, developed by Phillipa Aidoo and Rosina Antwi, is a command-line shell implementation built as part of our coursework at ALX Software Engineering School. The ALX Shell Project aims to provide a user-friendly and efficient shell environment for executing commands and managing a variety of tasks.
+Welcome to our Shell Project! This project, developed by Phillipa Aidoo and Rosina Antwi, is a command-line shell implementation built as part of our coursework at ALX Software Engineering School. The ALX Shell Project aims to provide a user-friendly and efficient shell environment for executing commands and managing a variety of tasks.
 
 ## Features
 
-- **Command Execution**: The ALX Shell allows users to execute various commands, such as file manipulation, directory navigation, process management, and more.
+- **Command Execution**: Our ALX Shell allows users to execute various commands, such as file manipulation, directory navigation, process management, and more.
 - **Built-in Commands**: We have implemented several built-in commands, including `cd`, `ls`, `pwd`, `echo`, and `exit`, to provide convenient and essential functionalities.
 - **Redirection and Piping**: Our shell supports input/output redirection and command piping, enabling users to manipulate and combine command outputs effectively.
 - **Background Processes**: Users can run commands in the background by appending the `&` symbol, allowing for concurrent execution of tasks.
-- **Signal Handling**: The ALX Shell properly handles signals like `Ctrl+C` and `Ctrl+Z` to ensure a smooth user experience.
+- **Signal Handling**: Our ALX Shell properly handles signals like `Ctrl+C` and `Ctrl+Z` to ensure a smooth user experience.
 
 ## Getting Started
 
-To get started with the ALX Shell Project, follow these steps:
+To get started with Our ALX Shell Project, follow these steps:
 
 1. Clone the repository to your local machine:
 ```
@@ -45,7 +45,7 @@ git clone https://github.com/your-username/alx-shell-project.git
 
 ## Usage
 
-Once inside the ALX Shell, you can start executing commands as you would in a regular shell environment. Use the provided built-in commands or any other commands available in your system.
+Once inside our ALX Shell, you can start executing commands as you would in a regular shell environment. Use the provided built-in commands or any other commands available in your system.
 
 Here are a few examples:
 
@@ -88,4 +88,4 @@ Special thanks to the ALX community for their continuous encouragement and inspi
 
 ---
 
-Thank you for taking the time to explore our ALX Shell Project! We hope you find it useful and enjoyable. If you have any questions or feedback, please don't hesitate to reach out. Yedaase!
+Thank you for taking the time to explore our ALX Shell Project! We hope you find it useful and enjoyable. If you have any questions or feedback, please don't hesitate to reach out. **Yedaase!**
