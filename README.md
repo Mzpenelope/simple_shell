@@ -1,9 +1,8 @@
 ```
-SSSSS H H EEEEE L L
-S H H E L L
-SSSSS HHHHHHHH EEEE L L
-S H H E L L
-SSSSS H H EEEEE LLLLL LLLLL
+| | | | | | | ___
+| || |/ _ \ | |/ _
+| _ | / | | () |
+|| |_|_|||_/
 ```
 
 # ALX Shell Project
