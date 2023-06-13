@@ -6,6 +6,7 @@
  |_| |_|\___|_|_|\___/
  
 ```
+![Introductory Banner](https://github.com/Mzpenelope/shell-practice/raw/018bbc7ff0ab303096de4513e0d093be7b091fe6/giphy.gif)
 
 # ALX Shell Project
 
