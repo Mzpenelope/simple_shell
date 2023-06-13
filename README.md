@@ -8,7 +8,7 @@
 ```
 ![Introductory Banner](https://github.com/Mzpenelope/shell-practice/raw/018bbc7ff0ab303096de4513e0d093be7b091fe6/giphy.gif)
 
-# ALX Shell Project
+# Phillipa & Rosina's ALX Shell Project
 
 Welcome to our Shell Project! This project, developed by Phillipa Aidoo and Rosina Antwi, is a command-line shell implementation built as part of our coursework at ALX Software Engineering School. The ALX Shell Project aims to provide a user-friendly and efficient shell environment for executing commands and managing a variety of tasks.
 
