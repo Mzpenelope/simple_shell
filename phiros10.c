@@ -1,0 +1,186 @@
+#include "phiros.h"
+/**
+ * phifo - copies info
+ ** @n: name
+ ** @v: value
+ ** Return: nw.
+ ************************/
+char *phifo(char *n, char *v)
+{
+char *nw;
+int me, ue, l;
+
+me = _rozy(n);
+ue = _rozy(v);
+l = me + ue + 2;
+nw = malloc(sizeof(char) * (l));
+_roscat(nw, n);
+_roscat(nw, "=");
+_roscat(nw, v);
+_roscat(nw, "\0");
+
+return (nw);
+}
+/**
+ * phillenvv - sets environment var
+ * @n: name of environment var
+ * @v: value of environment var
+ * @dsh: data struct
+ * Return: no return
+ */
+void phillenvv(char *n, char *v, phiros_shell *dsh)
+{
+int z;
+char *r, *p;
+
+for (z = 0; dsh->roviron[z]; z++)
+{
+r = _rosphi(dsh->roviron[z]);
+p = _rok(r, "=");
+if (_roscmp(p, n) == 0)
+{
+free(dsh->roviron[z]);
+dsh->roviron[z] = phifo(p, v);
+free(r);
+return;
+}
+free(r);
+}
+
+dsh->roviron = _roloc(dsh->roviron, z, sizeof(char *) * (z + 2));
+dsh->roviron[z] = phifo(n, v);
+dsh->roviron[z + 1] = NULL;
+}
+/**
+ * rossenvv - compares env var names
+ ** @dsh: data relevant
+ ** Return: 1 on success.
+ ************************************/
+int rossenvv(phiros_shell *dsh)
+{
+
+if (dsh->ag[1] == NULL || dsh->ag[2] == NULL)
+{
+phirror(dsh, -1);
+return (1);
+}
+
+phillenvv(dsh->ag[1], dsh->ag[2], dsh);
+
+return (1);
+}
+/**
+ * unrosee - deletes env var
+ ** @dsh: data
+ ** Return: 1 on success.
+ *****************************/
+int unrosee(phiros_shell *dsh)
+{
+char **z;
+char *r, *p;
+int a, b, c;
+
+if (dsh->ag[1] == NULL)
+{
+phirror(dsh, -1);
+return (1);
+}
+c = -1;
+for (a = 0; dsh->roviron[a]; a++)
+{
+r = _rosphi(dsh->roviron[a]);
+p = _rok(r, "=");
+if (_roscmp(p, dsh->ag[1]) == 0)
+{
+c = a;
+}
+free(r);
+}
+if (c == -1)
+{
+phirror(dsh, -1);
+return (1);
+}
+z = malloc(sizeof(char *) * (a));
+for (a = b = 0; dsh->roviron[a]; a++)
+{
+if (a != c)
+{
+z[b] = dsh->roviron[a];
+b++;
+}
+}
+z[b] = NULL;
+free(dsh->roviron[c]);
+free(dsh->roviron);
+dsh->roviron = z;
+return (1);
+}
+/**
+ * phillipvnn - compares env var
+ ** @v: name of environment var
+ ** @e: name passed
+ ** Return: 0 or another value
+ ********************************/
+int phillipvnn(const char *v, const char *e)
+{
+int u;
+
+for (u = 0; v[u] != '='; u++)
+{
+if (v[u] != e[u])
+{
+return (0);
+}
+}
+
+return (u + 1);
+}
+/**
+ * _phillienx - get env var
+ ** @n: name of env var
+ ** @r: env var
+ ** Return: value of env var else NULL.
+ ******************************************/
+char *_phillienx(const char *n, char **r)
+{
+char *p;
+int u, m;
+
+p = NULL;
+m = 0;
+
+for (u = 0; r[u]; u++)
+{
+m = phillipvnn(r[u], n);
+if (m)
+{
+p = r[u];
+break;
+}
+}
+
+return (p + m);
+}
+/**
+ * pnv - prints env var
+ ** @dsh: data
+ ** Return: 1 on success.
+ *************************/
+int pnv(phiros_shell *dsh)
+{
+int a, b;
+
+for (a = 0; dsh->roviron[a]; a++)
+{
+
+for (b = 0; dsh->roviron[a][b]; b++)
+;
+
+write(STDOUT_FILENO, dsh->roviron[a], b);
+write(STDOUT_FILENO, "\n", 1);
+}
+dsh->status = 0;
+
+return (1);
+}
