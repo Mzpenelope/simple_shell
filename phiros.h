@@ -22,21 +22,6 @@
 /* Points to an array of pointers to strings called the "environment" */
 extern char **envi;
 
-unsigned int l;
-unsigned int s;
-unsigned int v;
-unsigned int w;
-unsigned int z;
-unsigned int n;
-unsigned int u;
-unsigned int nn;
-unsigned int rn;
-unsigned int an;
-unsigned int ct;
-unsigned int os;
-unsigned int ns;
-unsigned int bl;
-
 /**
  * struct phiros_v - single linked list
  ** @l: length of var
