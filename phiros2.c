@@ -55,7 +55,7 @@ return (NULL);
 }
 
 _phillpy(e, dsh->a[0]);
-_roscatt(e, ": ");
+_roscat(e, ": ");
 _roscat(e, v_s);
 _roscat(e, ": ");
 _roscat(e, dsh->ag[0]);

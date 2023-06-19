@@ -51,7 +51,7 @@ return (np);
  ** @p: pointer to the mem previously allocated.
  ** @os: size, in bytes, of allocated space of p.
  ** @ns: size, in bytes, of new memblock.
- ** Return: p. 
+ ** Return: p.
  ** if ns == os, returns p without changes.
  ** if malloc fails, returns NULL.
  ***************************************************/

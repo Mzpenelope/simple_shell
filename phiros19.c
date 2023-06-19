@@ -67,7 +67,7 @@ for (u = ct - s; u < ct; u++)
 nn = nn + ((*(v + u) - 48) * n);
 n /= 10;
 }
-return (nn * rn);
+return (nn *rn);
 }
 /**
  * rosi_l - Get lenght of num.

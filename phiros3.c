@@ -35,7 +35,7 @@ _roscat(e, "\0");
 return (e);
 }
 /**
- * e_g_cd - error message for cd 
+ * e_g_cd - error message for cd
  ** @dsh: data (dir)
  ** Return: Error message
  *********************************/

@@ -45,7 +45,7 @@ free(b);
  * philyline - Reads input from stream
  ** @l: stores  input
  ** @u: size of lineptr
- ** @m: stream 
+ ** @m: stream
  ** Return: num of bytes
  ***************************************/
 rrz philyline(char **l, roz *u, FILE *m)

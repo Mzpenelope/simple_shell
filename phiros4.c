@@ -33,7 +33,7 @@ void rosuntenv(void)
 {
 char *h = "unsetenv: unsetenv (const char *name)\n\t";
 
-write(STDOUT_FILENO, h,_rozy(h));
+write(STDOUT_FILENO, h, _rozy(h));
 h = "Remove entry from envi\n";
 write(STDOUT_FILENO, h, _rozy(h));
 }
@@ -49,7 +49,7 @@ write(STDOUT_FILENO, h, _rozy(h));
 h = "These commands are defined internally.Type 'help' to see the list";
 write(STDOUT_FILENO, h, _rozy(h));
 h = "Type 'help name' to find out more about the function 'name'.\n\n ";
-write(STDOUT_FILENO, h,_rozy(h));
+write(STDOUT_FILENO, h, _rozy(h));
 h = " alias: alias [name=['string']]\n cd: cd [-L|[-P [-e]] [-@]] ";
 write(STDOUT_FILENO, h, _rozy(h));
 h = "[dir]\nexit: exit [n]\n  env: env [option] [name=value] [command ";

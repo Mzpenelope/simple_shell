@@ -31,7 +31,7 @@ dsh->status = 0;
 return (1);
 }
 /**
- * phirror - calls error 
+ * phirror - calls error
  ** @dsh: data struct
  ** @ev: error value
  ** Return: error
@@ -52,7 +52,7 @@ case 127:
 e = phillif(dsh);
 break;
 case 2:
-if ( _roscmp("exit", dsh->ag[0]) == 0)
+if (_roscmp("exit", dsh->ag[0]) == 0)
 e = rosexitz(dsh);
 else if (_roscmp("cd", dsh->ag[0]) == 0)
 e = rosegetz(dsh);

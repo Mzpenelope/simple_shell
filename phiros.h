@@ -77,7 +77,7 @@ typedef struct phirosss_s
 	struct phirosss_s *n;
 } phirosss;
 /**
- * struct b_t - builtin struct 
+ * struct b_t - builtin struct
  ** @n: name of command builtin i.e cd, exit, env
  ** @p: data type pointer function.
  *************************************************/
@@ -101,10 +101,10 @@ typedef struct phirose
 int c;
 char **a;
 char **ag;
-char *pid;	
+char *pid;
 int status;
-char *enter;	
-char **envi;			
+char *enter;
+char **envi;
 } phiros_shell;
 
 /* all prototypes */
@@ -172,7 +172,7 @@ phiross *phillend(phiross **h, char s);
 int phirror(phiros_shell *dsh, int ev);
 phirosss *phills(phirosss **h, char *l);
 void phrita(phiros_shell *dsh, char **a);
-rrz philyline(char **l, roz *u, FILE *m);
+roz philyline(char **l, roz *u, FILE *m);
 int (*rosintine(char *c))(phiros_shell *);
 char *_phillienx(const char *n, char **r);
 int phiytax(phiros_shell *dsh, char *enter);

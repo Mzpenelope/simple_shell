@@ -48,7 +48,7 @@ dsh->status = 0;
 free(c);
 }
 /**
- * roto - cd to user given dir 
+ * roto - cd to user given dir
  ** @dsh: data
  ** Return: no return
  *****************************/

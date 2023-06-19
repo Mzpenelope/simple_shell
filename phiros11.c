@@ -1,7 +1,7 @@
 #include "phiros.h"
 /**
  * rphill - exits shell
- ** @dsh: data 
+ ** @dsh: data
  ** Return: 0 on success.
  *************************/
 int rphill(phiros_shell *dsh)
