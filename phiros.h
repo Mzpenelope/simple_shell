@@ -67,7 +67,7 @@ struct phiros_v *n;
 typedef struct phiross_s
 {
 	char s;
-	struct phiros_s *n;
+	struct phiross_s *n;
 } phiross;
 
 /**
