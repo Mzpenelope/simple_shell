@@ -165,8 +165,8 @@ return (1);
  ***********************************/
 char **rosline(char *enter)
 {
-roz b;
-roz u;
+size_t b;
+size_t u;
 char **tt;
 char *t;
 
