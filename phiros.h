@@ -70,9 +70,9 @@ typedef struct b_s
 {
 char *n;
 int (*p)(phiros_shell *dsh);
-} b_t;
+} b_s;
 /**
- * struct phiros - struct containing all data
+ * struct phirose - struct containing all data
  ** @c: lines counter
  ** @a: argument vector
  ** @pid: process ID of the shell
