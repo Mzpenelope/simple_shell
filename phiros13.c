@@ -15,7 +15,7 @@ write(STDOUT_FILENO, "\n^-^ ", 5);
  ** @u: size of line
  ** @v: size of buffer
  *******************************************/
-void rosebby(char **l, roz *u, char *b, roz v)
+void rosebby(char **l, size_t *u, char *b, size_t v)
 {
 
 if (*l == NULL)
@@ -48,7 +48,7 @@ free(b);
  ** @m: stream
  ** Return: num of bytes
  ***************************************/
-rrz philyline(char **l, roz *u, FILE *m)
+ssize_t philyline(char **l, size_t *u, FILE *m)
 {
 int a;
 static rrz enter;
