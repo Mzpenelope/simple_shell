@@ -153,8 +153,8 @@ return (0);
  ***********************************/
 int phexec(phiros_shell *dsh)
 {
-ridd a;
-ridd b;
+pid_t a;
+pid_t b;
 int s;
 int e;
 char *d;
