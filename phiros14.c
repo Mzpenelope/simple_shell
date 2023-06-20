@@ -39,7 +39,7 @@ crosina(hh, h + u, phirose);
 return (u);
 }
 /**
- * check_env - checks if the typed var is an env var
+ * crosina - checks if the typed var is an env var
  ** @hh: head of linked list
  ** @h: input string
  ** @phirose: data structure

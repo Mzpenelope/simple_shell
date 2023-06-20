@@ -37,7 +37,7 @@ l = _rok(NULL, ";|&");
  * phillext - go to next command line stored
  ** @ls: separator list
  ** @ll: command line list
- ** @datash: data structure
+ ** @dsh: data structure
  ** Return: no return
  **********************************************/
 void phillext(phiross **ls, phirosss **ll, phiros_shell *dsh)

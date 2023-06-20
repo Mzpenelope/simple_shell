@@ -17,7 +17,7 @@ rosnp[u] = rosp[u];
 }
 /**
  * _roloc - reallocates memblock of double pointer.
- ** @ptr: double pointer to previous mem
+ ** @p: double pointer to previous mem
  ** @os: size, in bytes, of p.
  ** @ns: size, in bytes, ofnew memblock.
  ** Return: p.
