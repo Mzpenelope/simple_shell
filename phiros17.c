@@ -52,8 +52,6 @@ int _roscmp(char *p, char *r)
 int u;
 
 for (u = 0; p[u] == r[u] && p[u]; u++)
-		;
-
 if (p[u] > r[u])
 return (1);
 if (p[u] < r[u])
