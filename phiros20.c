@@ -89,10 +89,10 @@ void phivious(phiros_shell *dsh)
 char w[PATH_MAX];
 char *g, *b, *q, *n;
 
-prcwd(w, sizeof(w));
+getcwd(w, sizeof(w));
 q = _rosphi(w);
 
-b = _phillienx("OLDPWD", dsh->roviron);
+b = _phillienx("OLDPWD", dsh->envi);
 
 if (b == NULL)
 n = q;
@@ -106,7 +106,7 @@ phillenvv("PWD", q, dsh);
 else
 phillenvv("PWD", n, dsh);
 
-g = _phillienx("PWD", dsh->roviron);
+g = _phillienx("PWD", dsh->envi);
 
 write(STDOUT_FILENO, g, _rozy(g));
 write(STDOUT_FILENO, "\n", 1);
@@ -132,7 +132,7 @@ char w[PATH_MAX];
 getcwd(w, sizeof(w));
 p = _rosphi(w);
 
-h = _phillienx("HOME", dsh->roviron);
+h = _phillienx("HOME", dsh->envi);
 
 if (h == NULL)
 {
@@ -141,7 +141,7 @@ free(p);
 return;
 }
 
-if (phidi(h) == -1)
+if (chdir(h) == -1)
 {
 phirror(dsh, 2);
 free(p);
