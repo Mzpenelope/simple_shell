@@ -32,7 +32,7 @@ phiros *philladd(phiros **h, int l, char *v, int lv)
 {
 phiros *nw, *t;
 
-nw = malloc(sizeof(phiros_v));
+nw = malloc(sizeof(phiros));
 if (nw == NULL)
 return (NULL);
 
