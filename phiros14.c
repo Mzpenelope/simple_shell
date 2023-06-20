@@ -154,7 +154,7 @@ n = 0;
 
 while (x != NULL)
 {
-n += (x->lv - index->l);
+n += (x->lv - x->l);
 x = x->n;
 }
 
