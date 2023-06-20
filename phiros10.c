@@ -33,23 +33,23 @@ void phillenvv(char *n, char *v, phiros_shell *dsh)
 int z;
 char *r, *p;
 
-for (z = 0; dsh->roviron[z]; z++)
+for (z = 0; dsh->envi[z]; z++)
 {
-r = _rosphi(dsh->roviron[z]);
+r = _rosphi(dsh->envi[z]);
 p = _rok(r, "=");
 if (_roscmp(p, n) == 0)
 {
-free(dsh->roviron[z]);
-dsh->roviron[z] = phifo(p, v);
+free(dsh->envi[z]);
+dsh->envi[z] = phifo(p, v);
 free(r);
 return;
 }
 free(r);
 }
 
-dsh->roviron = _roloc(dsh->roviron, z, sizeof(char *) * (z + 2));
-dsh->roviron[z] = phifo(n, v);
-dsh->roviron[z + 1] = NULL;
+dsh->envi = _roloc(dsh->envi, z, sizeof(char *) * (z + 2));
+dsh->envi[z] = phifo(n, v);
+dsh->envi[z + 1] = NULL;
 }
 /**
  * rossenvv - compares env var names
@@ -86,9 +86,9 @@ phirror(dsh, -1);
 return (1);
 }
 c = -1;
-for (a = 0; dsh->roviron[a]; a++)
+for (a = 0; dsh->envi[a]; a++)
 {
-r = _rosphi(dsh->roviron[a]);
+r = _rosphi(dsh->envi[a]);
 p = _rok(r, "=");
 if (_roscmp(p, dsh->ag[1]) == 0)
 {
@@ -102,18 +102,18 @@ phirror(dsh, -1);
 return (1);
 }
 z = malloc(sizeof(char *) * (a));
-for (a = b = 0; dsh->roviron[a]; a++)
+for (a = b = 0; dsh->envi[a]; a++)
 {
 if (a != c)
 {
-z[b] = dsh->roviron[a];
+z[b] = dsh->envi[a];
 b++;
 }
 }
 z[b] = NULL;
-free(dsh->roviron[c]);
-free(dsh->roviron);
-dsh->roviron = z;
+free(dsh->envi[c]);
+free(dsh->envi);
+dsh->envi = z;
 return (1);
 }
 /**
