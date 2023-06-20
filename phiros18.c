@@ -7,7 +7,7 @@
 char *_rosphi(const char *v)
 {
 char *nw;
-_roz l;
+size_t l;
 
 l = _rozy(v);
 nw = malloc(sizeof(char) * (l + 1));
@@ -40,7 +40,7 @@ int rossy(char s[], const char *dl)
 {
 unsigned int u, v, w;
 
-for (u = 0, w = 0; s[i]; u++)
+for (u = 0, w = 0; s[u]; u++)
 {
 for (v = 0; dl[v]; v++)
 {
