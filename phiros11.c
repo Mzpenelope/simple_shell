@@ -42,7 +42,7 @@ return (1);
 b = rosintine(dsh->ag[0]);
 
 if (b != NULL)
-return (phrotin(dsh));
+return (b_t(dsh));
 
 return (phexec(dsh));
 }
