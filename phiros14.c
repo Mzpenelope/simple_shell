@@ -50,7 +50,7 @@ void crosina(phiros **hh, char *h, phiros_shell *phirose)
 int r, c, y, v;
 char **e;
 
-e = phirose->roviron;
+e = phirose->envi;
 for (r = 0; e[r]; r++)
 {
 for (y = 1, c = 0; e[r][c]; c++)
@@ -154,7 +154,7 @@ n = 0;
 
 while (x != NULL)
 {
-n += (x->lv - indx->l);
+n += (x->lv - index->l);
 x = x->n;
 }
 
