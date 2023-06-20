@@ -22,36 +22,35 @@ free(t);
 }
 /**
  * phillend - adds separator
- * @h: head of linked list.
+ * @h: address of the head of linked list.
  * @s: separator found (; | &).
  * Return: address of the head.
  ***************************************/
 phiross *phillend(phiross **h, char s)
 {
-phiross *nw, *t;
+  phiross *nw, *t;
 
-nw = malloc(sizeof(phiross));
-if (nw == NULL)
-return (NULL);
+  nw = malloc(sizeof(phiross));
+  if (nw == NULL)
+    return NULL;
 
-nw->s = s;
-nw->n = NULL;
-t = *h;
+  nw->s = s;
+  nw->n = NULL;
+  t = *h;
 
-if (t == NULL)
-{
-*h = nw;
+  if (t == NULL)
+  {
+    *h = nw;
+  }
+  else
+  {
+    while (t->n != NULL)
+      t = t->n;
+    t->n = nw;
+  }
+
+  return *h;
 }
-else
-{
-while (t->n != NULL)
-t = t->n;
-t->n = nw;
-}
-
-return *h;
-}
-
 /**
  * phills - adds a command line
  ** @h: head of linked list.
