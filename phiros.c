@@ -57,7 +57,7 @@ phiros_shell dsh;
 (void) c;
 
 signal(SIGINT, roget);
-set_phirose(&dsh, v);
+set_phrita(&dsh, v);
 phillrop(&dsh);
 fdiros(&dsh);
 if (dsh.status < 0)
