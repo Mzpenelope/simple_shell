@@ -23,6 +23,26 @@
 extern char **envi;
 
 /**
+ * struct phirose - struct containing all data
+ ** @c: lines counter
+ ** @a: argument vector
+ ** @pid: process ID of the shell
+ ** @envi: environment variable
+ ** @ag: tokens of the command line
+ ** @status: last status of the shell
+ ** @enter: command line written by the user
+ ***********************************************/
+typedef struct phirose
+{
+int c;
+char **a;
+char **ag;
+char *pid;
+int status;
+char *enter;
+char **envi;
+} phiros_shell;
+/**
  * struct phiros_v - single linked list
  ** @l: length of var
  ** @v: value of var
@@ -63,35 +83,15 @@ typedef struct phirosss_s
 } phirosss;
 /**
  * struct b_s - builtin struct
- ** @n: name of command builtin i.e cd, exit, env
+ ** @n: name ofcommand builtin i.e cd, exit, env
  ** @p: data type pointer function.
- * Description: strucyure to store information about built-in commands
- *************************************************/
+ * Description: struc to store info about built-in commands
+ ************************************************************/
 typedef struct b_s
 {
-char *n;
-int (*p)(phiros_shell *dsh);
-} b_s;
-/**
- * struct phirose - struct containing all data
- ** @c: lines counter
- ** @a: argument vector
- ** @pid: process ID of the shell
- ** @envi: environment variable
- ** @ag: tokens of the command line
- ** @status: last status of the shell
- ** @enter: command line written by the user
- ***********************************************/
-typedef struct phirose
-{
-int c;
-char **a;
-char **ag;
-char *pid;
-int status;
-char *enter;
-char **envi;
-} phiros_shell;
+	char *n;
+	int (*p)(phiros_shell *dsh);
+} b_t;
 
 /* all prototypes */
 void roxit(void);
