@@ -2,10 +2,10 @@
 
 /**
  * prop - finds syntax errors
- ** @enter: input string
- ** @u: index
- ** @l: last char read
- ** Return: 0 when there are no errors
+ * @enter: input string
+ * @u: index
+ * @l: last char read
+ * Return: 0 when there are no errors
  ****************************************/
 int prop(char *enter, int u, char l)
 {
@@ -52,9 +52,9 @@ return (prop(enter + 1, u + 1, *enter));
 }
 /**
  * rrist - finds index of 1st char
- ** @enter: input string
- ** @u: index
- ** Return: 1 if error else 0.
+ * @enter: input string
+ * @u: index
+ * Return: 1 if error else 0.
  ***************************************/
 int rrist(char *enter, int *u)
 {
@@ -74,11 +74,11 @@ return (0);
 }
 /**
  * phrintax - prints when syntax error is found
- ** @dsh: data struct
- ** @enter: input string
- ** @u: index of error
- ** @b: control msg error
- ** Return: no return
+ * @dsh: data struct
+ * @enter: input string
+ * @u: index of error
+ * @b: control msg error
+ * Return: no return
  **************************************************/
 void phrintax(phiros_shell *dsh, char *enter, int u, int b)
 {
@@ -125,9 +125,9 @@ free(c);
 }
 /**
  * phiytax - func to find & print syntax error
- ** @dsh: data struct
- ** @enter: input string
- ** Return: 1 if error. 0 if none
+ * @dsh: data struct
+ * @enter: input string
+ * Return: 1 if error. 0 if none
  ***********************************************/
 int phiytax(phiros_shell *dsh, char *enter)
 {
