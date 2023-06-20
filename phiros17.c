@@ -31,11 +31,11 @@ return (d);
 char *_phillpy(char *d, char *s)
 {
 
-roz m;
+size_t m;
 
 for (m = 0; s[m] != '\0'; m++)
 {
-d[m] = src[m];
+d[m] = s[m];
 }
 d[m] = '\0';
 
