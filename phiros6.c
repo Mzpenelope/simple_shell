@@ -22,9 +22,9 @@ free(t);
 }
 /**
  * phillend - adds separator
- ** @h: head of linked list.
- ** @s: separator found (; | &).
- ** Return: address of the head.
+ * @h: head of linked list.
+ * @s: separator found (; | &).
+ * Return: address of the head.
  ***************************************/
 phiross *phillend(phiross **h, char s)
 {
@@ -49,8 +49,9 @@ t = t->n;
 t->n = nw;
 }
 
-return (*h);
+return *h;
 }
+
 /**
  * phills - adds a command line
  ** @h: head of linked list.
