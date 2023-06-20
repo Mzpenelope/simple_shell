@@ -51,14 +51,14 @@ free(b);
 ssize_t philyline(char **l, size_t *u, FILE *m)
 {
 int a;
-static rrz enter;
-rrz r;
+static ssize_t enter;
+ssize_t r;
 char t = 'z';
 char *b;
 
 
 if (enter == 0)
-phillush(m);
+fflush(m);
 else
 return (-1);
 enter = 0;
@@ -80,7 +80,7 @@ enter++;
 break;
 }
 if (enter >= BUFSIZE)
-b = _rolok(b, enter, enter + 1);
+b = rolok(b, enter, enter + 1);
 b[enter] = t;
 enter++;
 }
