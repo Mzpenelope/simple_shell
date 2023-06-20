@@ -8,12 +8,12 @@ void fdiros(phiros_shell *dsh)
 {
 unsigned int u;
 
-for (u = 0; dsh->roviron[u]; u++)
+for (u = 0; dsh->envi[u]; u++)
 {
-free(dsh->roviron[u]);
+free(dsh->envi[u]);
 }
 
-free(dsh->roviron);
+free(dsh->envi);
 free(dsh->pid);
 }
 /**
@@ -35,14 +35,14 @@ dsh->c = 1;
 for (u = 0; envi[u]; u++)
 ;
 
-dsh->roviron = malloc(sizeof(char *) * (u + 1));
+dsh->envi = malloc(sizeof(char *) * (u + 1));
 
 for (u = 0; envi[u]; u++)
 {
-dsh->roviron[u] = _rosphi(envi[u]);
+dsh->envi[u] = _rosphi(envi[u]);
 }
 
-dsh->roviron[u] = NULL;
+dsh->envi[u] = NULL;
 dsh->pid = _phillipa(getpid());
 }
 /**
@@ -51,13 +51,13 @@ dsh->pid = _phillipa(getpid());
  ** @v: arg vector
  ** Return: 0 on success.
  *******************************/
-int phiros(int c, char **v)
+int aidoo(int c, char **v)
 {
 phiros_shell dsh;
 (void) c;
 
 signal(SIGINT, roget);
-set_data(&dsh, a);
+set_data(&dsh, v);
 phillrop(&dsh);
 fdiros(&dsh);
 if (dsh.status < 0)
