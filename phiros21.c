@@ -1,3 +1,5 @@
+#include "phiros.h"
+
 /**
  * prop - finds syntax errors
  ** @enter: input string
