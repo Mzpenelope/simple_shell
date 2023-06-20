@@ -77,7 +77,7 @@ int rosutable(phiros_shell *dsh)
 {
 struct stat pr;
 int u;
-char enter;
+char *enter;
 
 enter = dsh->ag[0];
 for (u = 0; enter[u]; u++)
