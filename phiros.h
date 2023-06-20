@@ -62,9 +62,10 @@ typedef struct phirosss_s
 	struct phirosss_s *n;
 } phirosss;
 /**
- * struct b_t - builtin struct
+ * struct b_s - builtin struct
  ** @n: name of command builtin i.e cd, exit, env
  ** @p: data type pointer function.
+ * Description: strucyure to store information about built-in commands
  *************************************************/
 typedef struct b_s
 {
