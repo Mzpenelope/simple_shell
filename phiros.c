@@ -35,11 +35,11 @@ dsh->c = 1;
 for (u = 0; environ[u]; u++)
 ;
 
-dsh->envi = malloc(sizeof(char *) * (u + 1));
+dsh->_environ = malloc(sizeof(char *) * (u + 1));
 
 for (u = 0; environ[u]; u++)
 {
-dsh->_environ[u] = _rosphi(envi[u]);
+dsh->_environ[u] = _rosphi(environ[u]);
 }
 
 dsh->_environ[u] = NULL;
