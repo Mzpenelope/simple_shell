@@ -34,13 +34,13 @@ int pnv(phiros_shell *dsh)
 {
 int a, b;
 
-for (a = 0; dsh->envi[a]; a++)
+for (a = 0; dsh->_environ[a]; a++)
 {
 
-for (b = 0; dsh->envi[a][b]; b++)
+for (b = 0; dsh->_environ[a][b]; b++)
 ;
 
-write(STDOUT_FILENO, dsh->envi[a], b);
+write(STDOUT_FILENO, dsh->_environ[a], b);
 write(STDOUT_FILENO, "\n", 1);
 }
 dsh->status = 0;
