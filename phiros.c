@@ -46,12 +46,12 @@ dsh->envi[u] = NULL;
 dsh->pid = _phillipa(getpid());
 }
 /**
- * phiros - Entry point
+ * main - Entry point
  ** @c: arg count
  ** @v: arg vector
  ** Return: 0 on success.
  *******************************/
-int phiros(int c, char **v)
+int main(int c, char **v)
 {
 phiros_shell dsh;
 (void) c;
