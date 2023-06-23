@@ -49,13 +49,13 @@ case 126:
 e = phillpath(dsh);
 break;
 case 127:
-e = phillif(dsh);
+e = ros_nd(dsh);
 break;
 case 2:
 if (_roscmp("exit", dsh->ag[0]) == 0)
-e = rosexitz(dsh);
+e = ros_xll(dsh);
 else if (_roscmp("cd", dsh->ag[0]) == 0)
-e = rosegetz(dsh);
+e = e_g_cd(dsh);
 break;
 }
 
@@ -76,12 +76,12 @@ return (ev);
 int (*rosintine(char *c))(phiros_shell *)
 {
 b_t b[] = {
-{ "env", phnv },
-{ "exit", phit },
-{ "setenv", phenv },
-{ "unsetenv", phunv },
-{ "cd", phcd },
-{ "help", phlp },
+{ "env", pnv },
+{ "exit", rphill },
+{ "setenv", rossenvv },
+{ "unsetenv", unrosee },
+{ "cd", crosed },
+{ "help", phiroselp },
 { NULL, NULL }
 };
 int u;
