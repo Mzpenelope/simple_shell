@@ -20,7 +20,7 @@
 #define ERR_FORK "Unable to fork and create phill process\n"
 #define ERR_PATH "No such file or directory\n"
 /* Points to an array of pointers to strings called the "environment" */
-extern char **envi;
+extern char **environ;
 
 /**
  * struct phirose - struct containing all data
