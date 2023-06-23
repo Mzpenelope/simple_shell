@@ -51,7 +51,7 @@ dsh->pid = _phillipa(getpid());
  ** @v: arg vector
  ** Return: 0 on success.
  *******************************/
-int aidoo(int c, char **v)
+int phiros(int c, char **v)
 {
 phiros_shell dsh;
 (void) c;
