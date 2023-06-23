@@ -8,12 +8,12 @@ void fdiros(phiros_shell *dsh)
 {
 unsigned int u;
 
-for (u = 0; dsh->envi[u]; u++)
+for (u = 0; dsh->_environ[u]; u++)
 {
-free(dsh->envi[u]);
+free(dsh->_environ[u]);
 }
 
-free(dsh->envi);
+free(dsh->_environ);
 free(dsh->pid);
 }
 /**
@@ -37,12 +37,12 @@ for (u = 0; envi[u]; u++)
 
 dsh->envi = malloc(sizeof(char *) * (u + 1));
 
-for (u = 0; envi[u]; u++)
+for (u = 0; _environ[u]; u++)
 {
-dsh->envi[u] = _rosphi(envi[u]);
+dsh->_environ[u] = _rosphi(envi[u]);
 }
 
-dsh->envi[u] = NULL;
+dsh->_environ[u] = NULL;
 dsh->pid = _phillipa(getpid());
 }
 /**
