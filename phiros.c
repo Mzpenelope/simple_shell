@@ -46,7 +46,7 @@ dsh->envi[u] = NULL;
 dsh->pid = _phillipa(getpid());
 }
 /**
- * aidoo - Entry point
+ * phiros - Entry point
  ** @c: arg count
  ** @v: arg vector
  ** Return: 0 on success.
