@@ -165,7 +165,7 @@ if (e == -1)
 return (1);
 if (e == 0)
 {
-d = roich(dsh->ag[0], dsh->envi);
+d = roich(dsh->ag[0], dsh->_environ);
 if (pheck(d, dsh) == 1)
 return (1);
 }
@@ -174,10 +174,10 @@ a = fork();
 if (a == 0)
 {
 if (e == 0)
-d = roich(dsh->ag[0], dsh->envi);
+d = roich(dsh->ag[0], dsh->_environ);
 else
 d = dsh->ag[0];
-execve(d + e, dsh->ag, dsh->envi);
+execve(d + e, dsh->ag, dsh->_environ);
 }
 else if (a < 0)
 {
