@@ -92,7 +92,7 @@ char *g, *b, *q, *n;
 getcwd(w, sizeof(w));
 q = _rosphi(w);
 
-b = _phillienx("OLDPWD", dsh->envi);
+b = _phillienx("OLDPWD", dsh->_environ);
 
 if (b == NULL)
 n = q;
@@ -106,7 +106,7 @@ phillenvv("PWD", q, dsh);
 else
 phillenvv("PWD", n, dsh);
 
-g = _phillienx("PWD", dsh->envi);
+g = _phillienx("PWD", dsh->_environ);
 
 write(STDOUT_FILENO, g, _rozy(g));
 write(STDOUT_FILENO, "\n", 1);
@@ -132,7 +132,7 @@ char w[PATH_MAX];
 getcwd(w, sizeof(w));
 p = _rosphi(w);
 
-h = _phillienx("HOME", dsh->envi);
+h = _phillienx("HOME", dsh->_environ);
 
 if (h == NULL)
 {
