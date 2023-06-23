@@ -32,12 +32,12 @@ dsh->ag = NULL;
 dsh->status = 0;
 dsh->c = 1;
 
-for (u = 0; envi[u]; u++)
+for (u = 0; environ[u]; u++)
 ;
 
 dsh->envi = malloc(sizeof(char *) * (u + 1));
 
-for (u = 0; _environ[u]; u++)
+for (u = 0; environ[u]; u++)
 {
 dsh->_environ[u] = _rosphi(envi[u]);
 }
