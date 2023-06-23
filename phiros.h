@@ -111,7 +111,7 @@ char *_phillipa(int v);
 void philly(phiros **h);
 void phily(phiross **h);
 char *rophiline(int *u);
-int phiros(int c, char **v);
+int main(int c, char **v);
 void revphill(char *ss);
 int _rozy(const char *v);
 int main(int c, char **v);
