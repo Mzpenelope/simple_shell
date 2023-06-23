@@ -7,9 +7,9 @@
 char *rophiline(int *u)
 {
 char *enter = NULL;
-roz bufsize = 0;
+size_t bufsize = 0;
 
-*u = getline(&enter, &bufsize, sd);
+*u = getline(&enter, &bufsize, stdin);
 
 return (enter);
 }
@@ -40,7 +40,7 @@ u = a;
 
 if (u != 0)
 {
-h = _rolok(h, a, u + 1);
+h = rolok(h, a, u + 1);
 h[u] = '\0';
 }
 
