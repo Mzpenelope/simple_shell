@@ -40,7 +40,7 @@ char **ag;
 char *pid;
 int status;
 char *enter;
-char **__environ;
+char **_environ;
 } phiros_shell;
 /**
  * struct phiros_v - single linked list
