@@ -1,11 +1,9 @@
-#include "main.h"
-
+#include "phiros.h"
 /**
  * _memcpy - copies infor betwixt void pointers.
  * @newptr:the destination pointer.
  * @ptr: the source pointer.
  * @size: size of new pointer.
- *
  * Return: no return.
  */
 void _memcpy(void *newptr, const void *ptr, unsigned int size)
@@ -17,13 +15,11 @@ void _memcpy(void *newptr, const void *ptr, unsigned int size)
 	for (r = 0; r < size; r++)
 		char_newptr[r] = char_ptr[r];
 }
-
 /**
  * pr_realloc - reallocates the memory block.
  * @ptr: pointer to the memory allocated previously
  * @old_size: size, in bytes, of the allocated space of ptr.
  * @new_size: new size, in bytes, of the new memory block.
- *
  * Return: ptr.
  * if new_size == old_size, returns ptr without changes.
  * if malloc fails, returns NULL.
@@ -58,16 +54,15 @@ void *pr_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 }
 
 /**
- * _reallocdp - reallocates a memory block of a double pointer.
+ * pr_reallocdp - reallocates a memory block of a double pointer.
  * @ptr: double pointer to the memory allocated previously.
  * @old_size: size, in bytes, of the allocated space of ptr.
  * @new_size: new size, in bytes, of the new memory block.
- *
  * Return: ptr.
  * if new_size == old_size, returns ptr without changes.
  * if malloc fails, returns NULL.
  */
-char **_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size)
+char **pr_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size)
 {
 	char **newptr;
 	unsigned int r;
