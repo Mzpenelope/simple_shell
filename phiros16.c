@@ -18,7 +18,7 @@ int pr_cmp_env_name(const char *nenv, const char *name)
 		}
 	}
 
-	return (i + 1);
+	return (m + 1);
 }
 /**
  * pr_getenv - get an environment variable
