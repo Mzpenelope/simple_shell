@@ -23,7 +23,7 @@ bad_flag = malloc(3);
 bad_flag[0] = '-';
 bad_flag[1] = dsh->args[1][1];
 bad_flag[2] = '\0';
-pr_strcat(error, bad_flag);
+pr_strcat(e, bad_flag);
 free(bad_flag);
 }
 else
