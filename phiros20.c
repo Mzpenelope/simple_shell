@@ -1,28 +1,28 @@
-#include "main.h"
+#include "phiros.h"
 
 /**
- * get_builtin - builtin that pais the command in the arg
+ * pr_get_builtin - builtin that pais the command in the arg
  * @cmd: command
  * Return: function pointer of the builtin command
  */
-int (*get_builtin(char *cmd))(data_shell *)
+int (*pr_get_builtin(char *cmd))(phiros_shell *)
 {
 	builtin_t builtin[] = {
-		{ "env", _env },
-		{ "exit", exit_shell },
-		{ "setenv", _setenv },
-		{ "unsetenv", _unsetenv },
-		{ "cd", cd_shell },
-		{ "help", get_help },
+		{ "env", pr_env },
+		{ "exit", pr_exit_shell },
+		{ "setenv", pr_setenv },
+		{ "unsetenv", pr_unsetenv },
+		{ "cd", pr_cd_shell },
+		{ "help", pr_get_help },
 		{ NULL, NULL }
 	};
-	int i;
+	int u;
 
-	for (i = 0; builtin[i].name; i++)
+	for (u = 0; builtin[i].name; u++)
 	{
-		if (_strcmp(builtin[i].name, cmd) == 0)
+		if (pr_strcmp(builtin[u].name, cmd) == 0)
 			break;
 	}
 
-	return (builtin[i].f);
+	return (builtin[u].f);
 }
