@@ -18,7 +18,7 @@ int (*pr_get_builtin(char *cmd))(phiros_shell *)
 	};
 	int u;
 
-	for (u = 0; builtin[i].name; u++)
+	for (u = 0; builtin[u].name; u++)
 	{
 		if (pr_strcmp(builtin[u].name, cmd) == 0)
 			break;
