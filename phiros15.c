@@ -192,6 +192,6 @@ int pr_cmd_exec(phiros_shell *dsh)
 		} while (!WIFEXITED(state) && !WIFSIGNALED(state));
 	}
 
-	datash->status = state / 256;
+	dsh->status = state / 256;
 	return (1);
 }
