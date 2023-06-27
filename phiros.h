@@ -1,5 +1,5 @@
-#ifndef _MAIN_H_
-#define _MAIN_H_
+#ifndef _PHIROS_H_
+#define _PHIROS_H_
 
 #include <stdio.h>
 #include <unistd.h>
@@ -21,7 +21,7 @@ extern char **environ;
 
 
 /**
- * struct data - struct that contains all relevant data on runtime
+ * struct phiros_shell - struct that contains all relevant data on runtime
  * @av: argument vector
  * @input: command line written by the user
  * @args: tokens of the command line
@@ -30,7 +30,7 @@ extern char **environ;
  * @_environ: environment variable
  * @pid: process ID of the shell
  */
-typedef struct data
+typedef struct phiros_shell
 {
 	char **av;
 	char *input;
@@ -39,7 +39,7 @@ typedef struct data
 	int counter;
 	char **_environ;
 	char *pid;
-} data_shell;
+} phiros_shell;
 
 /**
  * struct sep_list_s - single linked list
@@ -89,145 +89,137 @@ typedef struct r_var_list
 typedef struct builtin_s
 {
 	char *name;
-	int (*f)(data_shell *datash);
+	int (*f)(phiros_shell *dsh);
 } builtin_t;
 
-/* aux_lists.c */
-sep_list *add_sep_node_end(sep_list **head, char sep);
-void free_sep_list(sep_list **head);
-line_list *add_line_node_end(line_list **head, char *line);
-void free_line_list(line_list **head);
+/* phiros1.c */
+char *pr_strcat_cd(phiros_shell *dsh, char *msg, char *e, char *v_s);
+char *e_g_cd(phiros_shell *dsh);
+char *e_n_f(phiros_shell *dsh);
+char *e_e_s(phiros_shell *dsh);
 
-/* aux_lists2.c */
-r_var *add_rvar_node(r_var **head, int lvar, char *var, int lval);
-void free_rvar_list(r_var **head);
+/* phiros10.c */
+char *pr_strdup(const char *s);
+int pr_strlen(const char *s);
+int compare_chars(char string[], const char *delim);
+char *pr_strtok(char string[], const char *delim);
+int pr_isdigit(const char *s);
 
-/* aux_str functions */
-char *_strcat(char *dest, const char *src);
-char *_strcpy(char *dest, char *src);
-int _strcmp(char *s1, char *s2);
-char *_strchr(char *s, char c);
-int _strspn(char *s, char *accept);
+/* phiros11.c */
+void pr_rev_string(char *s);
 
-/* aux_mem.c */
+/* phiros12.c */
+void pr_cd_dot(phiros_shell *dsh);
+void pr_cd_to(phiros_shell *dsh);
+void pr_cd_previous(phiros_shell *dsh);
+void pr_cd_to_home(phiros_shell *dsh);
+
+/* phiros13.c */
+int pr_cd_shell(phiros_shell *dsh);
+
+/* phiros14.c */
+int repeat_char(char *input, int u);
+int pr_e_s_p(char *input, int u, char last);
+int pr_first_char(char *input, int *u);
+void p_s_e(phiros_shell *dsh, char *input, int u, int bool);
+int c_s_e(phiros_shell *dsh, char *input);
+
+/* phiros18.c */
+int pr_exec_line(phiros_shell *dsh);
+
+/* phiros19.c */
+int pr_exit_shell(phiros_shell *dsh);
+
+/* phiros20.c */
+int (*pr_get_builtin(char *cmd))(phiros_shell *);
+
+/* phiros21.c */
+int pr_get_error(phiros_shell *dsh, int eva);
+
+/* phiros22.c */
+int pr_get_help(phiros_shell *dsh);
+
+/* phiros23.c */
+void pr_bring_line(char **lptr, size_t *i, char *buffer, size_t k);
+ssize_t pr_get_line(char **lptr, size_t *i, FILE *stream);
+
+/* phiros24.c */
+void pr_get_sigint(int sig);
+char *pr_read_line(int *iff);
+
+/* phiros26.c */
+char *pr_without_comment(char *in);
+void s_loop(phiros_shell *dsh);
+
+/* phiros27.c */
+char *pr_swap_char(char *input, int bool);
+void pr_add_nodes(sep_list **hs, line_list **hl, char *input);
+void pr_go_next(sep_list **l_s, line_list **l_l, phiros_shell *dsh);
+int pr_split_commands(phiros_shell *dsh, char *input);
+char **pr_split_line(char *input);
+
+/* phiros3.c */
+void a_help_env(void);
+void a_help_setenv(void);
+void a_help_unsetenv(void);
+void a_help_general(void);
+void a_help_exit(void);
+
+/* phiros4.c */
+void a_help(void);
+void a_help_alias(void);
+void a_help_cd(void);
+
+/* phiros5.c */
+sep_list *pr_add_sep_node_end(sep_list **head, char sep);
+void pr_free_sep_list(sep_list **head);
+line_list *pr_add_line_node_end(line_list **head, char *line);
+void pr_free_line_list(line_list **head);
+
+/* phiros6.c */
+r_var *pr_add_rvar_node(r_var **head, int lvar, char *val, int lval);
+void pr_free_rvar_list(r_var **head);
+
+/* phiros7.h */
 void _memcpy(void *newptr, const void *ptr, unsigned int size);
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
-char **_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size);
+void *pr_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+char **pr_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size);
 
-/* aux_str2.c */
-char *_strdup(const char *s);
-int _strlen(const char *s);
-int cmp_chars(char str[], const char *delim);
-char *_strtok(char str[], const char *delim);
-int _isdigit(const char *s);
+/* phiros8.c */
+int pr_get_len(int n);
+char *pr_itoa(int n);
+int pr_atoi(char *s);
 
-/* aux_str3.c */
-void rev_string(char *s);
+/* phiros9.c */
+char *pr_strcat(char *dest, const char *src);
+char *pr_strcpy(char *dest, char *src);
+int pr_strcmp(char *s1, char *s2);
+char *pr_strchr(char *s, char c);
+int pr_strspn(char *s, char *accept);
 
-/* check_syntax_error.c */
-int repeated_char(char *input, int i);
-int error_sep_op(char *input, int i, char last);
-int first_char(char *input, int *i);
-void print_syntax_error(data_shell *datash, char *input, int i, int bool);
-int check_syntax_error(data_shell *datash, char *input);
+/* phiros25.c */
+void pr_check_env(r_var **h, char *in, phiros_shell *data);
+int pr_check_vars(r_var **h, char *in, char *st, phiros_shell *data);
+char *replace_input(r_var **head, char *input, char *new_input, int nlen);
+char *rep_variable(char *input, phiros_shell *dsh);
 
-/* shell_loop.c */
-char *without_comment(char *in);
-void shell_loop(data_shell *datash);
+/* phiros17.c */
+char *pr_copy_info(char *name, char *value);
+void pr_set_env(char *name, char *value, phiros_shell *dsh);
+int pr_setenv(phiros_shell *dsh);
+int pr_unsetenv(phiros_shell *dsh);
 
-/* read_line.c */
-char *read_line(int *i_eof);
+/* phiros16.c */
+int pr_cmp_env_name(const char *nenv, const char *name);
+char *pr_getenv(const char *name, char **_environ);
+int pr_env(phiros_shell *dsh);
 
-/* split.c */
-char *swap_char(char *input, int bool);
-void add_nodes(sep_list **head_s, line_list **head_l, char *input);
-void go_next(sep_list **list_s, line_list **list_l, data_shell *datash);
-int split_commands(data_shell *datash, char *input);
-char **split_line(char *input);
+/* phiros15.c */
+int pr_is_cdir(char *path, int *m);
+char *pr_which(char *cmd, char **_environ);
+int pr_is_executable(phiros_shell *dsh);
+int pr_check_error_cmd(char *d, phiros_shell *dsh);
+int pr_cmd_exec(phiros_shell *dsh);
 
-/* rep_var.c */
-void check_env(r_var **h, char *in, data_shell *data);
-int check_vars(r_var **h, char *in, char *st, data_shell *data);
-char *replaced_input(r_var **head, char *input, char *new_input, int nlen);
-char *rep_var(char *input, data_shell *datash);
-
-/* get_line.c */
-void bring_line(char **lineptr, size_t *n, char *buffer, size_t j);
-ssize_t get_line(char **lineptr, size_t *n, FILE *stream);
-
-/* exec_line */
-int exec_line(data_shell *datash);
-
-/* cmd_exec.c */
-int is_cdir(char *path, int *i);
-char *_which(char *cmd, char **_environ);
-int is_executable(data_shell *datash);
-int check_error_cmd(char *dir, data_shell *datash);
-int cmd_exec(data_shell *datash);
-
-/* env1.c */
-char *_getenv(const char *name, char **_environ);
-int _env(data_shell *datash);
-
-/* env2.c */
-char *copy_info(char *name, char *value);
-void set_env(char *name, char *value, data_shell *datash);
-int _setenv(data_shell *datash);
-int _unsetenv(data_shell *datash);
-
-/* cd.c */
-void cd_dot(data_shell *datash);
-void cd_to(data_shell *datash);
-void cd_previous(data_shell *datash);
-void cd_to_home(data_shell *datash);
-
-/* cd_shell.c */
-int cd_shell(data_shell *datash);
-
-/* get_builtin */
-int (*get_builtin(char *cmd))(data_shell *datash);
-
-/* _exit.c */
-int exit_shell(data_shell *datash);
-
-/* aux_stdlib.c */
-int get_len(int n);
-char *aux_itoa(int n);
-int _atoi(char *s);
-
-/* aux_error1.c */
-char *strcat_cd(data_shell *, char *, char *, char *);
-char *error_get_cd(data_shell *datash);
-char *error_not_found(data_shell *datash);
-char *error_exit_shell(data_shell *datash);
-
-/* aux_error2.c */
-char *error_get_alias(char **args);
-char *error_env(data_shell *datash);
-char *error_syntax(char **args);
-char *error_permission(char **args);
-char *error_path_126(data_shell *datash);
-
-
-/* get_error.c */
-int get_error(data_shell *datash, int eval);
-
-/* get_sigint.c */
-void get_sigint(int sig);
-
-/* aux_help.c */
-void aux_help_env(void);
-void aux_help_setenv(void);
-void aux_help_unsetenv(void);
-void aux_help_general(void);
-void aux_help_exit(void);
-
-/* aux_help2.c */
-void aux_help(void);
-void aux_help_alias(void);
-void aux_help_cd(void);
-
-/* get_help.c */
-int get_help(data_shell *datash);
 
 #endif
