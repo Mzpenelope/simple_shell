@@ -1,65 +1,62 @@
-#include "main.h"
-
+#include "phiros.h"
 /**
- * is_cdir - checks ":" if is in the current directory.
+ * pr_is_cdir - checks ":" if is in the current directory.
  * @path: type char pointer char.
- * @i: type int pointer of index.
+ * @m: type int pointer of index.
  * Return: 1 if the path is searchable in the cd, 0 otherwise.
  */
-int is_cdir(char *path, int *i)
+int pr_is_cdir(char *path, int *m)
 {
-	if (path[*i] == ':')
+	if (path[*m] == ':')
 		return (1);
 
-	while (path[*i] != ':' && path[*i])
+	while (path[*m] != ':' && path[*m])
 	{
-		*i += 1;
+		*m += 1;
 	}
 
-	if (path[*i])
-		*i += 1;
+	if (path[*m])
+		*m += 1;
 
 	return (0);
 }
-
 /**
- * _which - locates a command
- *
+ * pr_which - locates a command
  * @cmd: command name
  * @_environ: environment variable
  * Return: location of the command.
  */
-char *_which(char *cmd, char **_environ)
+char *pr_which(char *cmd, char **_environ)
 {
-	char *path, *ptr_path, *token_path, *dir;
-	int len_dir, len_cmd, i;
+	char *path, *ptr_path, *token_path, *d;
+	int len_dir, len_cmd, u;
 	struct stat st;
 
-	path = _getenv("PATH", _environ);
+	path = pr_getenv("PATH", _environ);
 	if (path)
 	{
-		ptr_path = _strdup(path);
-		len_cmd = _strlen(cmd);
-		token_path = _strtok(ptr_path, ":");
-		i = 0;
+		ptr_path = pr_strdup(path);
+		len_cmd = pr_strlen(cmd);
+		token_path = pr_strtok(ptr_path, ":");
+		u = 0;
 		while (token_path != NULL)
 		{
-			if (is_cdir(path, &i))
+			if (pr_is_cdir(path, &u))
 				if (stat(cmd, &st) == 0)
 					return (cmd);
-			len_dir = _strlen(token_path);
-			dir = malloc(len_dir + len_cmd + 2);
-			_strcpy(dir, token_path);
-			_strcat(dir, "/");
-			_strcat(dir, cmd);
-			_strcat(dir, "\0");
-			if (stat(dir, &st) == 0)
+			len_dir = pr_strlen(token_path);
+			d = malloc(len_dir + len_cmd + 2);
+			pr_strcpy(d, token_path);
+			pr_strcat(d, "/");
+			pr_strcat(d, cmd);
+			pr_strcat(d, "\0");
+			if (stat(d, &st) == 0)
 			{
 				free(ptr_path);
-				return (dir);
+				return (d);
 			}
-			free(dir);
-			token_path = _strtok(NULL, ":");
+			free(d);
+			token_path = pr_strtok(NULL, ":");
 		}
 		free(ptr_path);
 		if (stat(cmd, &st) == 0)
@@ -71,82 +68,78 @@ char *_which(char *cmd, char **_environ)
 			return (cmd);
 	return (NULL);
 }
-
 /**
- * is_executable - determines if is an executable
- *
- * @datash: data structure
+ * pr_is_executable - determines if is an executable
+ * @dsh: data structure
  * Return: 0 if is not an executable, other number if it does
  */
-int is_executable(data_shell *datash)
+int pr_is_executable(phiros_shell *dsh)
 {
 	struct stat st;
-	int i;
+	int u;
 	char *input;
 
-	input = datash->args[0];
-	for (i = 0; input[i]; i++)
+	input = dsh->args[0];
+	for (u = 0; input[u]; u++)
 	{
-		if (input[i] == '.')
+		if (input[u] == '.')
 		{
-			if (input[i + 1] == '.')
+			if (input[u + 1] == '.')
 				return (0);
-			if (input[i + 1] == '/')
+			if (input[u + 1] == '/')
 				continue;
 			else
 				break;
 		}
-		else if (input[i] == '/' && i != 0)
+		else if (input[u] == '/' && u != 0)
 		{
-			if (input[i + 1] == '.')
+			if (input[u + 1] == '.')
 				continue;
-			i++;
+			u++;
 			break;
 		}
 		else
 			break;
 	}
-	if (i == 0)
+	if (u == 0)
 		return (0);
 
-	if (stat(input + i, &st) == 0)
+	if (stat(input + u, &st) == 0)
 	{
-		return (i);
+		return (u);
 	}
-	get_error(datash, 127);
+	pr_get_error(dsh, 127);
 	return (-1);
 }
-
 /**
- * check_error_cmd - verifies if user has permissions to access
- *
- * @dir: destination directory
- * @datash: data structure
+ * pr_check_error_cmd - verifies if user has permissions to access
+ * @d: destination directory
+ * @dsh: data structure
  * Return: 1 if there is an error, 0 if not
  */
-int check_error_cmd(char *dir, data_shell *datash)
+int pr_check_error_cmd(char *d, phiros_shell *dsh)
 {
-	if (dir == NULL)
+	if (d == NULL)
 	{
-		get_error(datash, 127);
+		pr_get_error(dsh, 127);
 		return (1);
 	}
 
-	if (_strcmp(datash->args[0], dir) != 0)
+	if (pr_strcmp(dsh->args[0], d) != 0)
 	{
-		if (access(dir, X_OK) == -1)
+		if (access(d, X_OK) == -1)
 		{
-			get_error(datash, 126);
-			free(dir);
+			pr_get_error(dsh, 126);
+			free(d);
 			return (1);
 		}
-		free(dir);
+		free(d);
 	}
 	else
 	{
-		if (access(datash->args[0], X_OK) == -1)
+		if (access(dsh->args[0], X_OK) == -1)
 		{
-			get_error(datash, 126);
+			pr_get_error(dsh, 126);
 			return (1);
 		}
 	}
@@ -155,27 +148,26 @@ int check_error_cmd(char *dir, data_shell *datash)
 }
 
 /**
- * cmd_exec - executes command lines
- *
- * @datash: data relevant (args and input)
+ * pr_cmd_exec - executes command lines
+ * @dsh: data relevant
  * Return: 1 on success.
  */
-int cmd_exec(data_shell *datash)
+int pr_cmd_exec(phiros_shell *dsh)
 {
 	pid_t pd;
 	pid_t wpd;
 	int state;
 	int exec;
-	char *dir;
+	char *d;
 	(void) wpd;
 
-	exec = is_executable(datash);
+	exec = pr_is_executable(dsh);
 	if (exec == -1)
 		return (1);
 	if (exec == 0)
 	{
-		dir = _which(datash->args[0], datash->_environ);
-		if (check_error_cmd(dir, datash) == 1)
+		d = pr_which(dsh->args[0], dsh->_environ);
+		if (pr_check_error_cmd(d, dsh) == 1)
 			return (1);
 	}
 
@@ -183,14 +175,14 @@ int cmd_exec(data_shell *datash)
 	if (pd == 0)
 	{
 		if (exec == 0)
-			dir = _which(datash->args[0], datash->_environ);
+			d = pr_which(dsh->args[0], dsh->_environ);
 		else
-			dir = datash->args[0];
-		execve(dir + exec, datash->args, datash->_environ);
+			d = dsh->args[0];
+		execve(d + exec, dsh->args, dsh->_environ);
 	}
 	else if (pd < 0)
 	{
-		perror(datash->av[0]);
+		perror(dsh->av[0]);
 		return (1);
 	}
 	else
