@@ -50,7 +50,7 @@ dsh->_environ[i] = NULL;
 dsh->pid = pr_itoa(getpid());
 }
 /**
- * main - Entry point
+ * phiros - Entry point
  * @ac: argument count
  * @av: argument vector
  * Return: 0 on success.
