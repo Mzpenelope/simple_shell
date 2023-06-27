@@ -5,7 +5,7 @@
  * @eva: error value
  * Return: error
  */
-int pr_get_error(data_shell *dsh, int eva)
+int pr_get_error(phiros_shell *dsh, int eva)
 {
 	char *e;
 
