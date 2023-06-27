@@ -1,173 +1,177 @@
-#include "phiros.h"
+#include "main.h"
+
 /**
- * rovarx - check if the typed var is $$ or $?
- ** @hh: head of linked list
- ** @h: input string
- ** @l: last status of the Shell
- ** @phirose: data structure
- ** Return: no return
- ***********************************************/
-int rovarx(phiros **hh, char *h, char *l, phiros_shell *phirose)
+ * repeated_char - counts the repetitions of a char
+ *
+ * @input: input string
+ * @i: index
+ * Return: repetitions
+ */
+int repeated_char(char *input, int i)
 {
-int u, q, o;
+	if (*(input - 1) == *input)
+		return (repeated_char(input - 1, i + 1));
 
-q = _rozy(l);
-o = _rozy(phirose->pid);
+	return (i);
+}
 
-for (u = 0; h[u]; u++)
-{
-if (h[u] == '$')
-{
-if (h[u + 1] == '?')
-philladd(hh, 2, l, q), u++;
-else if (h[u + 1] == '$')
-philladd(hh, 2, phirose->pid, o), u++;
-else if (h[u + 1] == '\n')
-philladd(hh, 0, NULL, 0);
-else if (h[u + 1] == '\0')
-philladd(hh, 0, NULL, 0);
-else if (h[u + 1] == ' ')
-philladd(hh, 0, NULL, 0);
-else if (h[u + 1] == '\t')
-philladd(hh, 0, NULL, 0);
-else if (h[u + 1] == ';')
-philladd(hh, 0, NULL, 0);
-else
-crosina(hh, h + u, phirose);
-}
-}
-return (u);
-}
 /**
- * crosina - checks if the typed var is an env var
- ** @hh: head of linked list
- ** @h: input string
- ** @phirose: data structure
- ** Return: no return
- ****************************************************/
-void crosina(phiros **hh, char *h, phiros_shell *phirose)
+ * error_sep_op - finds syntax errors
+ *
+ * @input: input string
+ * @i: index
+ * @last: last char read
+ * Return: index of error. 0 when there are no
+ * errors
+ */
+int error_sep_op(char *input, int i, char last)
 {
-int r, c, y, v;
-char **e;
+	int count;
 
-e = phirose->_environ;
-for (r = 0; e[r]; r++)
-{
-for (y = 1, c = 0; e[r][c]; c++)
-{
-if (e[r][c] == '=')
-{
-v = _rozy(e[r] + c + 1);
-philladd(hh, y, e[r] + c + 1, v);
-return;
+	count = 0;
+	if (*input == '\0')
+		return (0);
+
+	if (*input == ' ' || *input == '\t')
+		return (error_sep_op(input + 1, i + 1, last));
+
+	if (*input == ';')
+		if (last == '|' || last == '&' || last == ';')
+			return (i);
+
+	if (*input == '|')
+	{
+		if (last == ';' || last == '&')
+			return (i);
+
+		if (last == '|')
+		{
+			count = repeated_char(input, 0);
+			if (count == 0 || count > 1)
+				return (i);
+		}
+	}
+
+	if (*input == '&')
+	{
+		if (last == ';' || last == '|')
+			return (i);
+
+		if (last == '&')
+		{
+			count = repeated_char(input, 0);
+			if (count == 0 || count > 1)
+				return (i);
+		}
+	}
+
+	return (error_sep_op(input + 1, i + 1, *input));
 }
 
-if (h[y] == e[r][c])
-y++;
-else
-break;
-}
-}
-
-for (y = 0; h[y]; y++)
-{
-if (h[y] == ' ' || h[y] == '\t' || h[y] == ';' || h[y] == '\n')
-break;
-}
-
-philladd(hh, y, NULL, 0);
-}
 /**
- * rosyput - replaces string into var
- ** @h: head of linked list
- ** @enter: input string
- ** @t: new input string (replaced)
- ** @n: new length
- ** Return: replaced string
- ***************************************/
-char *rosyput(phiros **h, char *enter, char *t, int n)
+ * first_char - finds index of the first char
+ *
+ * @input: input string
+ * @i: index
+ * Return: 1 if there is an error. 0 in other case.
+ */
+int first_char(char *input, int *i)
 {
-phiros *x;
-int a, b, c;
 
-x = *h;
-for (b = a = 0; a < n; a++)
-{
-if (enter[b] == '$')
-{
-if (!(x->l) && !(x->lv))
-{
-t[a] = enter[b];
-b++;
+	for (*i = 0; input[*i]; *i += 1)
+	{
+		if (input[*i] == ' ' || input[*i] == '\t')
+			continue;
+
+		if (input[*i] == ';' || input[*i] == '|' || input[*i] == '&')
+			return (-1);
+
+		break;
+	}
+
+	return (0);
 }
-else if (x->l && !(x->lv))
-{
-for (c = 0; c < x->l; c++)
-b++;
-a--;
-}
-else
-{
-for (c = 0; c < x->lv; c++)
-{
-t[a] = x->v[c];
-a++;
-}
-b += (x->l);
-a--;
-}
-x = x->n;
-}
-else
-{
-t[a] = enter[b];
-b++;
-}
-}
-return (t);
-}
+
 /**
- * rosvar - calls functions to replace string into vars
- ** @enter: input string
- ** @dsh: data structure
- ** Return: replaced string
- **********************************************************/
-char *rosvar(char *enter, phiros_shell *dsh)
+ * print_syntax_error - prints when a syntax error is found
+ *
+ * @datash: data structure
+ * @input: input string
+ * @i: index of the error
+ * @bool: to control msg error
+ * Return: no return
+ */
+void print_syntax_error(data_shell *datash, char *input, int i, int bool)
 {
-phiros *h, *x;
-char *status, *t;
-int m, n;
+	char *msg, *msg2, *msg3, *error, *counter;
+	int length;
 
-status = _phillipa(dsh->status);
-h = NULL;
+	if (input[i] == ';')
+	{
+		if (bool == 0)
+			msg = (input[i + 1] == ';' ? ";;" : ";");
+		else
+			msg = (input[i - 1] == ';' ? ";;" : ";");
+	}
 
-m = rovarx(&h, enter, status, dsh);
+	if (input[i] == '|')
+		msg = (input[i + 1] == '|' ? "||" : "|");
 
-if (h == NULL)
-{
-free(status);
-return (enter);
+	if (input[i] == '&')
+		msg = (input[i + 1] == '&' ? "&&" : "&");
+
+	msg2 = ": Syntax error: \"";
+	msg3 = "\" unexpected\n";
+	counter = aux_itoa(datash->counter);
+	length = _strlen(datash->av[0]) + _strlen(counter);
+	length += _strlen(msg) + _strlen(msg2) + _strlen(msg3) + 2;
+
+	error = malloc(sizeof(char) * (length + 1));
+	if (error == 0)
+	{
+		free(counter);
+		return;
+	}
+	_strcpy(error, datash->av[0]);
+	_strcat(error, ": ");
+	_strcat(error, counter);
+	_strcat(error, msg2);
+	_strcat(error, msg);
+	_strcat(error, msg3);
+	_strcat(error, "\0");
+
+	write(STDERR_FILENO, error, length);
+	free(error);
+	free(counter);
 }
 
-x = h;
-n = 0;
-
-while (x != NULL)
+/**
+ * check_syntax_error - intermediate function to
+ * find and print a syntax error
+ *
+ * @datash: data structure
+ * @input: input string
+ * Return: 1 if there is an error. 0 in other case
+ */
+int check_syntax_error(data_shell *datash, char *input)
 {
-n += (x->lv - x->l);
-x = x->n;
-}
+	int begin = 0;
+	int f_char = 0;
+	int i = 0;
 
-n += m;
+	f_char = first_char(input, &begin);
+	if (f_char == -1)
+	{
+		print_syntax_error(datash, input, begin, 0);
+		return (1);
+	}
 
-t = malloc(sizeof(char) * (n + 1));
-t[n] = '\0';
+	i = error_sep_op(input + begin, 0, *(input + begin));
+	if (i != 0)
+	{
+		print_syntax_error(datash, input, begin + i, 1);
+		return (1);
+	}
 
-t = rosyput(&h, enter, t, n);
-
-free(enter);
-free(status);
-philly(&h);
-
-return (t);
+	return (0);
 }

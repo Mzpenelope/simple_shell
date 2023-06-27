@@ -1,49 +1,33 @@
-#include "phiros.h"
+#include "main.h"
+
 /**
- * _phillienx - get env var
- ** @n: name of env var
- ** @r: env var
- ** Return: value of env var else NULL.
- ******************************************/
-char *_phillienx(const char *n, char **r)
-{
-char *p;
-int u, m;
-
-p = NULL;
-m = 0;
-
-for (u = 0; r[u]; u++)
-{
-m = phillipvnn(r[u], n);
-if (m)
-{
-p = r[u];
-break;
-}
-}
-
-return (p + m);
-}
-/**
- * pnv - prints env var
- ** @dsh: data
- ** Return: 1 on success.
- *************************/
-int pnv(phiros_shell *dsh)
-{
-int a, b;
-
-for (a = 0; dsh->_environ[a]; a++)
+ * get_help - function that retrieves help messages according builtin
+ * @datash: data structure (args and input)
+ * Return: Return 0
+*/
+int get_help(data_shell *datash)
 {
 
-for (b = 0; dsh->_environ[a][b]; b++)
-;
+	if (datash->args[1] == 0)
+		aux_help_general();
+	else if (_strcmp(datash->args[1], "setenv") == 0)
+		aux_help_setenv();
+	else if (_strcmp(datash->args[1], "env") == 0)
+		aux_help_env();
+	else if (_strcmp(datash->args[1], "unsetenv") == 0)
+		aux_help_unsetenv();
+	else if (_strcmp(datash->args[1], "help") == 0)
+		aux_help();
+	else if (_strcmp(datash->args[1], "exit") == 0)
+		aux_help_exit();
+	else if (_strcmp(datash->args[1], "cd") == 0)
+		aux_help_cd();
+	else if (_strcmp(datash->args[1], "alias") == 0)
+		aux_help_alias();
+	else
+		write(STDERR_FILENO, datash->args[0],
+		      _strlen(datash->args[0]));
 
-write(STDOUT_FILENO, dsh->_environ[a], b);
-write(STDOUT_FILENO, "\n", 1);
-}
-dsh->status = 0;
-
-return (1);
+	datash->status = 0;
+	return (1);
 }

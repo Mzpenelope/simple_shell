@@ -1,136 +1,80 @@
-#include "phiros.h"
-/**
- * rosina_cd - concatenates message for cd error
- ** @dsh: data (dir)
- ** @e: output message
- ** @m: print message
- ** @v_s: counter lines
- ** Return: error message
- ****************************************************/
-char *rosina_cd(phiros_shell *dsh, char *m, char *e, char *v_s)
-{
-char *bad_f;
-_phillpy(e, dsh->a[0]);
-_roscat(e, v_s);
-_roscat(e, ": ");
-_roscat(e, dsh->ag[0]);
-_roscat(e, ": ");
-_roscat(e, m);
-if (dsh->ag[1][0] == '-')
-{
-bad_f = malloc(3);
-bad_f[0] = '-';
-bad_f[1] = dsh->ag[1][1];
-bad_f[2] = '\0';
-_roscat(e, bad_f);
-free(bad_f);
-}
-else
-{
-_roscat(e, dsh->ag[1]);
-}
+#include "main.h"
 
-_roscat(e, "\n");
-_roscat(e, "\0");
-return (e);
+/**
+ * aux_help_env - Help information for the builtin env
+ * Return: no return
+ */
+void aux_help_env(void)
+{
+	char *help = "env: env [option] [name=value] [command [args]]\n\t";
+
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = "Print the enviroment of the shell.\n";
+	write(STDOUT_FILENO, help, _strlen(help));
+
 }
 /**
- * e_g_cd - error message for cd
- ** @dsh: data (dir)
- ** Return: Error message
- *********************************/
-char *e_g_cd(phiros_shell *dsh)
+ * aux_help_setenv - Help information for the builtin setenv
+ * Return: no return
+ */
+void aux_help_setenv(void)
 {
-int l, ros_lenid;
-char *e, *v_s, *m;
 
-v_s = _phillipa(dsh->c);
-if (dsh->ag[1][0] == '-')
-{
-m = ": no way ";
-ros_lenid = 2;
-}
-else
-{
-m = ": failed ";
-ros_lenid = _rozy(dsh->ag[1]);
-}
+	char *help = "setenv: setenv (const char *name, const char *value,";
 
-l = _rozy(dsh->a[0]) + _rozy(dsh->ag[0]);
-l += _rozy(v_s) + _rozy(m) + ros_lenid + 5;
-e = malloc(sizeof(char) * (l + 1));
-
-if (e == 0)
-{
-free(v_s);
-return (NULL);
-}
-
-e = rosina_cd(dsh, m, e, v_s);
-
-free(v_s);
-
-return (e);
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = "int replace)\n\t";
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = "Add a new definition to the environment\n";
+	write(STDOUT_FILENO, help, _strlen(help));
 }
 /**
- * ros_xll - error message for exit
- ** @dsh: data (counter, arguments)
- ** Return: Error message
- ************************************/
-char *ros_xll(phiros_shell *dsh)
+ * aux_help_unsetenv - Help information for the builtin unsetenv
+ * Return: no return
+ */
+void aux_help_unsetenv(void)
 {
-int l;
-char *v_s;
-char *e;
-v_s = _phillipa(dsh->c);
-l = _rozy(dsh->a[0]) + _rozy(v_s);
-l += _rozy(dsh->ag[0]) + _rozy(dsh->ag[1]) + 23;
-e = malloc(sizeof(char) * (l + 1));
-if (e == 0)
-{
-free(v_s);
-return (NULL);
-}
-_phillpy(e, dsh->a[0]);
-_roscat(e, ": ");
-_roscat(e, v_s);
-_roscat(e, ": ");
-_roscat(e, dsh->ag[0]);
-_roscat(e, ": Illegal num: ");
-_roscat(e, dsh->ag[1]);
-_roscat(e, "\n\0");
-free(v_s);
+	char *help = "unsetenv: unsetenv (const char *name)\n\t";
 
-return (e);
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = "Remove an entry completely from the environment\n";
+	write(STDOUT_FILENO, help, _strlen(help));
+}
+
+
+/**
+ * aux_help_general - Entry point for help information for the help builtin
+ * Return: no return
+ */
+void aux_help_general(void)
+{
+	char *help = "^-^ bash, version 1.0(1)-release\n";
+
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = "These commands are defined internally.Type 'help' to see the list";
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = "Type 'help name' to find out more about the function 'name'.\n\n ";
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = " alias: alias [name=['string']]\n cd: cd [-L|[-P [-e]] [-@]] ";
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = "[dir]\nexit: exit [n]\n  env: env [option] [name=value] [command ";
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = "[args]]\n  setenv: setenv [variable] [value]\n  unsetenv: ";
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = "unsetenv [variable]\n";
+	write(STDOUT_FILENO, help, _strlen(help));
 }
 /**
-* ros_nd - error message for command not found
-** @dsh: data (counter, arguments)
-** Return: Error message
-****************************************************************/
-char *ros_nd(phiros_shell *dsh)
+ * aux_help_exit - Help information fot the builint exit
+ * Return: no return
+ */
+void aux_help_exit(void)
 {
-int l;
-char *e;
-char *v_s;
+	char *help = "exit: exit [n]\n Exit shell.\n";
 
-v_s = _phillipa(dsh->c);
-l = _rozy(dsh->a[0]) + _rozy(v_s);
-l += _rozy(dsh->ag[0]) + 16;
-e = malloc(sizeof(char) * (l + 1));
-if (e == 0)
-{
-free(e);
-free(v_s);
-return (NULL);
-}
-_phillpy(e, dsh->a[0]);
-_roscat(e, ": ");
-_roscat(e, v_s);
-_roscat(e, ": ");
-_roscat(e, dsh->ag[0]);
-_roscat(e, ": not found\n");
-_roscat(e, "\0");
-free(v_s);
-return (e);
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = "Exits the shell with a status of N. If N is ommited, the exit";
+	write(STDOUT_FILENO, help, _strlen(help));
+	help = "statusis that of the last command executed\n";
+	write(STDOUT_FILENO, help, _strlen(help));
 }

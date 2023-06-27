@@ -1,96 +1,165 @@
-#include "phiros.h"
+#include "main.h"
+
 /**
- * phiroselp - get help messages according builtin
- ** @dsh: data struct
- ** Return: Return 0
- *************************************************/
-int phiroselp(phiros_shell *dsh)
+ * cd_dot - changes to the parent directory
+ *
+ * @datash: data relevant (environ)
+ *
+ * Return: no return
+ */
+void cd_dot(data_shell *datash)
 {
+	char pwd[PATH_MAX];
+	char *dir, *cp_pwd, *cp_strtok_pwd;
 
-if (dsh->ag[1] == 0)
-rosgen();
-else if (_roscmp(dsh->ag[1], "setenv") == 0)
-rostenv();
-else if (_roscmp(dsh->ag[1], "env") == 0)
-rosenv();
-else if (_roscmp(dsh->ag[1], "unsetenv") == 0)
-rosuntenv();
-else if (_roscmp(dsh->ag[1], "help") == 0)
-roselp();
-else if (_roscmp(dsh->ag[1], "exit") == 0)
-roxit();
-else if (_roscmp(dsh->ag[1], "cd") == 0)
-roselpx();
-else if (_roscmp(dsh->ag[1], "alias") == 0)
-roselps();
-else
-write(STDERR_FILENO, dsh->ag[0],
-_rozy(dsh->ag[0]));
+	getcwd(pwd, sizeof(pwd));
+	cp_pwd = _strdup(pwd);
+	set_env("OLDPWD", cp_pwd, datash);
+	dir = datash->args[1];
+	if (_strcmp(".", dir) == 0)
+	{
+		set_env("PWD", cp_pwd, datash);
+		free(cp_pwd);
+		return;
+	}
+	if (_strcmp("/", cp_pwd) == 0)
+	{
+		free(cp_pwd);
+		return;
+	}
+	cp_strtok_pwd = cp_pwd;
+	rev_string(cp_strtok_pwd);
+	cp_strtok_pwd = _strtok(cp_strtok_pwd, "/");
+	if (cp_strtok_pwd != NULL)
+	{
+		cp_strtok_pwd = _strtok(NULL, "\0");
 
-dsh->status = 0;
-return (1);
+		if (cp_strtok_pwd != NULL)
+			rev_string(cp_strtok_pwd);
+	}
+	if (cp_strtok_pwd != NULL)
+	{
+		chdir(cp_strtok_pwd);
+		set_env("PWD", cp_strtok_pwd, datash);
+	}
+	else
+	{
+		chdir("/");
+		set_env("PWD", "/", datash);
+	}
+	datash->status = 0;
+	free(cp_pwd);
 }
+
 /**
- * phirror - calls error
- ** @dsh: data struct
- ** @ev: error value
- ** Return: error
- ***************************/
-int phirror(phiros_shell *dsh, int ev)
+ * cd_to - changes to a directory given
+ * by the user
+ *
+ * @datash: data relevant (directories)
+ * Return: no return
+ */
+void cd_to(data_shell *datash)
 {
-char *e;
+	char pwd[PATH_MAX];
+	char *dir, *cp_pwd, *cp_dir;
 
-switch (ev)
-{
-case -1:
-e = phillevn(dsh);
-break;
-case 126:
-e = phillpath(dsh);
-break;
-case 127:
-e = ros_nd(dsh);
-break;
-case 2:
-if (_roscmp("exit", dsh->ag[0]) == 0)
-e = ros_xll(dsh);
-else if (_roscmp("cd", dsh->ag[0]) == 0)
-e = e_g_cd(dsh);
-break;
+	getcwd(pwd, sizeof(pwd));
+
+	dir = datash->args[1];
+	if (chdir(dir) == -1)
+	{
+		get_error(datash, 2);
+		return;
+	}
+
+	cp_pwd = _strdup(pwd);
+	set_env("OLDPWD", cp_pwd, datash);
+
+	cp_dir = _strdup(dir);
+	set_env("PWD", cp_dir, datash);
+
+	free(cp_pwd);
+	free(cp_dir);
+
+	datash->status = 0;
+
+	chdir(dir);
 }
 
-if (e)
-{
-write(STDERR_FILENO, e, _rozy(e));
-free(e);
-}
-
-dsh->status = ev;
-return (ev);
-}
 /**
- * rosintine - builtin
- * @c: command
- * Return: function pointer of builtin command
- ***********************************************/
-int (*rosintine(char *c))(phiros_shell *)
+ * cd_previous - changes to the previous directory
+ *
+ * @datash: data relevant (environ)
+ * Return: no return
+ */
+void cd_previous(data_shell *datash)
 {
-b_t b[] = {
-{ "env", pnv },
-{ "exit", rphill },
-{ "setenv", rossenvv },
-{ "unsetenv", unrosee },
-{ "cd", crosed },
-{ "help", phiroselp },
-{ NULL, NULL }
-};
-int u;
+	char pwd[PATH_MAX];
+	char *p_pwd, *p_oldpwd, *cp_pwd, *cp_oldpwd;
 
-for (u = 0; b[u].n; u++)
-{
-if (_roscmp(b[u].n, c) == 0)
-break;
+	getcwd(pwd, sizeof(pwd));
+	cp_pwd = _strdup(pwd);
+
+	p_oldpwd = _getenv("OLDPWD", datash->_environ);
+
+	if (p_oldpwd == NULL)
+		cp_oldpwd = cp_pwd;
+	else
+		cp_oldpwd = _strdup(p_oldpwd);
+
+	set_env("OLDPWD", cp_pwd, datash);
+
+	if (chdir(cp_oldpwd) == -1)
+		set_env("PWD", cp_pwd, datash);
+	else
+		set_env("PWD", cp_oldpwd, datash);
+
+	p_pwd = _getenv("PWD", datash->_environ);
+
+	write(STDOUT_FILENO, p_pwd, _strlen(p_pwd));
+	write(STDOUT_FILENO, "\n", 1);
+
+	free(cp_pwd);
+	if (p_oldpwd)
+		free(cp_oldpwd);
+
+	datash->status = 0;
+
+	chdir(p_pwd);
 }
 
-return (b[u].p);
+/**
+ * cd_to_home - changes to home directory
+ *
+ * @datash: data relevant (environ)
+ * Return: no return
+ */
+void cd_to_home(data_shell *datash)
+{
+	char *p_pwd, *home;
+	char pwd[PATH_MAX];
+
+	getcwd(pwd, sizeof(pwd));
+	p_pwd = _strdup(pwd);
+
+	home = _getenv("HOME", datash->_environ);
+
+	if (home == NULL)
+	{
+		set_env("OLDPWD", p_pwd, datash);
+		free(p_pwd);
+		return;
+	}
+
+	if (chdir(home) == -1)
+	{
+		get_error(datash, 2);
+		free(p_pwd);
+		return;
+	}
+
+	set_env("OLDPWD", p_pwd, datash);
+	set_env("PWD", home, datash);
+	free(p_pwd);
+	datash->status = 0;
 }

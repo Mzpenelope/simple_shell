@@ -1,183 +1,233 @@
-#ifndef _PHIROS_H_
-#define _PHIROS_H_
-#include <errno.h>
-#include <fcntl.h>
+#ifndef _MAIN_H_
+#define _MAIN_H_
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <signal.h>
-#include <limits.h>
-#include <string.h>
+#include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
-#include <sys/types.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <signal.h>
+#include <limits.h>
+
 #define BUFSIZE 1024
 #define TOK_BUFSIZE 128
 #define TOK_DELIM " \t\r\n\a"
-#define TRUE 1
-#define PROMPT "Phiros $ "
-#define ERR_MALLOC "Unable to allocate memory\n"
-#define ERR_FORK "Unable to fork and create phill process\n"
-#define ERR_PATH "No such file or directory\n"
+
 /* Points to an array of pointers to strings called the "environment" */
 extern char **environ;
 
-/**
- * struct phirose - struct containing all data
- ** @c: lines counter
- ** @a: argument vector
- ** @pid: process ID of the shell
- ** @envi: environment variable
- ** @ag: tokens of the command line
- ** @status: last status of the shell
- ** @enter: command line written by the user
- ***********************************************/
-typedef struct phirose
-{
-int c;
-char **a;
-char **ag;
-char *pid;
-int status;
-char *enter;
-char **_environ;
-} phiros_shell;
-/**
- * struct phiros_v - single linked list
- ** @l: length of var
- ** @v: value of var
- ** @lv: length of value
- ** @n: next node
- ** Description: single linked list to store vars
- *************************************************/
-typedef struct phiros_v
-{
-int l;
-char *v;
-int lv;
-struct phiros_v *n;
-} phiros;
 
 /**
- * struct phiross_s - single linked list
- ** @s: ; | &
- ** @n: next node
- ** Description: single linked list to store separators
- *******************************************************/
-typedef struct phiross_s
+ * struct data - struct that contains all relevant data on runtime
+ * @av: argument vector
+ * @input: command line written by the user
+ * @args: tokens of the command line
+ * @status: last status of the shell
+ * @counter: lines counter
+ * @_environ: environment variable
+ * @pid: process ID of the shell
+ */
+typedef struct data
 {
-	char s;
-	struct phiross_s *n;
-} phiross;
+	char **av;
+	char *input;
+	char **args;
+	int status;
+	int counter;
+	char **_environ;
+	char *pid;
+} data_shell;
 
 /**
- * struct phirosss_s - single linked list
- ** @l: command line
- ** @n: next node
- ** Description: single linked list to store command lines
- **********************************************************/
-typedef struct phirosss_s
+ * struct sep_list_s - single linked list
+ * @separator: ; | &
+ * @next: next node
+ * Description: single linked list to store separators
+ */
+typedef struct sep_list_s
 {
-	char *l;
-	struct phirosss_s *n;
-} phirosss;
+	char separator;
+	struct sep_list_s *next;
+} sep_list;
+
 /**
- * struct b_s - builtin struct
- ** @n: name ofcommand builtin i.e cd, exit, env
- ** @p: data type pointer function.
- * Description: struc to store info about built-in commands
- ************************************************************/
-typedef struct b_s
+ * struct line_list_s - single linked list
+ * @line: command line
+ * @next: next node
+ * Description: single linked list to store command lines
+ */
+typedef struct line_list_s
 {
-	char *n;
-	int (*p)(phiros_shell *dsh);
-} b_t;
+	char *line;
+	struct line_list_s *next;
+} line_list;
 
-/* all prototypes */
-void roxit(void);
-int b_e(char **t);
-int rosi_l(int v);
-void roget(int s);
-void rosgen(void);
-void rosenv(void);
-void roselp(void);
-void roselps(void);
-void roselpx(void);
-void rostenv(void);
-int _rosina(char *v);
-void rosuntenv(void);
-char *roment(char *h);
-char *_phillipa(int v);
-void philly(phiros **h);
-void phily(phiross **h);
-char *rophiline(int *u);
-int main(int c, char **v);
-void revphill(char *ss);
-int _rozy(const char *v);
-int main(int c, char **v);
-void phillly(phirosss **h);
-int pnv(phiros_shell *dsh);
-char **rosline(char *enter);
-int philgit(const char *ss);
-void roto(phiros_shell *dsh);
-void rome(phiros_shell *dsh);
-int roxec(phiros_shell *dsh);
-char *_rosphi(const char *v);
-int rphill(phiros_shell *dsh);
-int isphilly(char *p, int *u);
-int phexec(phiros_shell *dsh);
-int crosed(phiros_shell *dsh);
-char *phifo(char *n, char *v);
-int _roscmp(char *p, char *r);
-void fdiros(phiros_shell *dsh);
-int unrosee(phiros_shell *dsh);
-char *roich(char *c, char **n);
-void phidot(phiros_shell *dsh);
-int rrist(char *enter, int *u);
-int _phillpn(char *l, char *a);
-int rossenvv(phiros_shell *dsh);
-char *e_g_cd(phiros_shell *dsh);
-char *ros_nd(phiros_shell *dsh);
-char *ros_xll(phiros_shell *dsh);
-void phillrop(phiros_shell *dsh);
-int phiroselp(phiros_shell *dsh);
-int rosutable(phiros_shell *dsh);
-void phivious(phiros_shell *dsh);
-char *_phillchr(char *m, char n);
-char *_phillpy(char *d, char *s);
-char *phillevn(phiros_shell *dsh);
-int philllted(char *enter, int u);
-char *phillpath(phiros_shell *dsh);
-char *phillchar(char *enter, int b);
-int rossy(char s[], const char *dl);
-int phill(char *phillpath, char **t);
-char *_rok(char s[], const char *dl);
-int prop(char *enter, int u, char l);
-char *_roscat(char *d, const char *s);
-int pheck(char *d, phiros_shell *dsh);
-phiross *phillend(phiross **h, char s);
-int phirror(phiros_shell *dsh, int ev);
-phirosss *phills(phirosss **h, char *l);
-void phrita(phiros_shell *dsh, char **a);
-int (*rosintine(char *c))(phiros_shell *);
-char *_phillienx(const char *n, char **r);
-int phiytax(phiros_shell *dsh, char *enter);
-int phillipvnn(const char *v, const char *e);
-char *rosvar(char *enter, phiros_shell *dsh);
-int philliands(phiros_shell *dsh, char *enter);
-ssize_t philyline(char **l, size_t *u, FILE *m);
-void phillenvv(char *n, char *v, phiros_shell *dsh);
-void _rosy(void *np, const void *p, unsigned int s);
-phiros *philladd(phiros **h, int l, char *v, int lv);
-void rosebby(char **l, size_t *u, char *b, size_t v);
-char *rosyput(phiros **h, char *enter, char *t, int n);
-void rosodes(phiross **hs, phirosss **hl, char *enter);
-void *rolok(void *p, unsigned int os, unsigned int ns);
-char **_roloc(char **p, unsigned int os, unsigned int ns);
-void crosina(phiros **hh, char *h, phiros_shell *phirose);
-void phrintax(phiros_shell *dsh, char *enter, int u, int b);
-void phillext(phiross **ls, phirosss **ll, phiros_shell *dsh);
-char *rosina_cd(phiros_shell *dsh, char *m, char *e, char *v_s);
-int rovarx(phiros **hh, char *h, char *l, phiros_shell *phirose);
+/**
+ * struct r_var_list - single linked list
+ * @len_var: length of the variable
+ * @val: value of the variable
+ * @len_val: length of the value
+ * @next: next node
+ * Description: single linked list to store variables
+ */
+typedef struct r_var_list
+{
+	int len_var;
+	char *val;
+	int len_val;
+	struct r_var_list *next;
+} r_var;
 
-#endif /* _PHIROS_H */
+/**
+ * struct builtin_s - Builtin struct for command args.
+ * @name: The name of the command builtin i.e cd, exit, env
+ * @f: data type pointer function.
+ */
+typedef struct builtin_s
+{
+	char *name;
+	int (*f)(data_shell *datash);
+} builtin_t;
+
+/* aux_lists.c */
+sep_list *add_sep_node_end(sep_list **head, char sep);
+void free_sep_list(sep_list **head);
+line_list *add_line_node_end(line_list **head, char *line);
+void free_line_list(line_list **head);
+
+/* aux_lists2.c */
+r_var *add_rvar_node(r_var **head, int lvar, char *var, int lval);
+void free_rvar_list(r_var **head);
+
+/* aux_str functions */
+char *_strcat(char *dest, const char *src);
+char *_strcpy(char *dest, char *src);
+int _strcmp(char *s1, char *s2);
+char *_strchr(char *s, char c);
+int _strspn(char *s, char *accept);
+
+/* aux_mem.c */
+void _memcpy(void *newptr, const void *ptr, unsigned int size);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+char **_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size);
+
+/* aux_str2.c */
+char *_strdup(const char *s);
+int _strlen(const char *s);
+int cmp_chars(char str[], const char *delim);
+char *_strtok(char str[], const char *delim);
+int _isdigit(const char *s);
+
+/* aux_str3.c */
+void rev_string(char *s);
+
+/* check_syntax_error.c */
+int repeated_char(char *input, int i);
+int error_sep_op(char *input, int i, char last);
+int first_char(char *input, int *i);
+void print_syntax_error(data_shell *datash, char *input, int i, int bool);
+int check_syntax_error(data_shell *datash, char *input);
+
+/* shell_loop.c */
+char *without_comment(char *in);
+void shell_loop(data_shell *datash);
+
+/* read_line.c */
+char *read_line(int *i_eof);
+
+/* split.c */
+char *swap_char(char *input, int bool);
+void add_nodes(sep_list **head_s, line_list **head_l, char *input);
+void go_next(sep_list **list_s, line_list **list_l, data_shell *datash);
+int split_commands(data_shell *datash, char *input);
+char **split_line(char *input);
+
+/* rep_var.c */
+void check_env(r_var **h, char *in, data_shell *data);
+int check_vars(r_var **h, char *in, char *st, data_shell *data);
+char *replaced_input(r_var **head, char *input, char *new_input, int nlen);
+char *rep_var(char *input, data_shell *datash);
+
+/* get_line.c */
+void bring_line(char **lineptr, size_t *n, char *buffer, size_t j);
+ssize_t get_line(char **lineptr, size_t *n, FILE *stream);
+
+/* exec_line */
+int exec_line(data_shell *datash);
+
+/* cmd_exec.c */
+int is_cdir(char *path, int *i);
+char *_which(char *cmd, char **_environ);
+int is_executable(data_shell *datash);
+int check_error_cmd(char *dir, data_shell *datash);
+int cmd_exec(data_shell *datash);
+
+/* env1.c */
+char *_getenv(const char *name, char **_environ);
+int _env(data_shell *datash);
+
+/* env2.c */
+char *copy_info(char *name, char *value);
+void set_env(char *name, char *value, data_shell *datash);
+int _setenv(data_shell *datash);
+int _unsetenv(data_shell *datash);
+
+/* cd.c */
+void cd_dot(data_shell *datash);
+void cd_to(data_shell *datash);
+void cd_previous(data_shell *datash);
+void cd_to_home(data_shell *datash);
+
+/* cd_shell.c */
+int cd_shell(data_shell *datash);
+
+/* get_builtin */
+int (*get_builtin(char *cmd))(data_shell *datash);
+
+/* _exit.c */
+int exit_shell(data_shell *datash);
+
+/* aux_stdlib.c */
+int get_len(int n);
+char *aux_itoa(int n);
+int _atoi(char *s);
+
+/* aux_error1.c */
+char *strcat_cd(data_shell *, char *, char *, char *);
+char *error_get_cd(data_shell *datash);
+char *error_not_found(data_shell *datash);
+char *error_exit_shell(data_shell *datash);
+
+/* aux_error2.c */
+char *error_get_alias(char **args);
+char *error_env(data_shell *datash);
+char *error_syntax(char **args);
+char *error_permission(char **args);
+char *error_path_126(data_shell *datash);
+
+
+/* get_error.c */
+int get_error(data_shell *datash, int eval);
+
+/* get_sigint.c */
+void get_sigint(int sig);
+
+/* aux_help.c */
+void aux_help_env(void);
+void aux_help_setenv(void);
+void aux_help_unsetenv(void);
+void aux_help_general(void);
+void aux_help_exit(void);
+
+/* aux_help2.c */
+void aux_help(void);
+void aux_help_alias(void);
+void aux_help_cd(void);
+
+/* get_help.c */
+int get_help(data_shell *datash);
+
+#endif

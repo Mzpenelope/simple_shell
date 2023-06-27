@@ -1,66 +1,69 @@
-#include "phiros.h"
+#include "main.h"
+
 /**
- * phillpath - error msg for path and failure denied permission.
- ** @dsh: data (counter, arguments).
- ** Return: string error.
- ****************************************************************/
-char *phillpath(phiros_shell *dsh)
+ * error_env - error message for env in get_env.
+ * @datash: data relevant (counter, arguments)
+ * Return: error message.
+ */
+char *error_env(data_shell *datash)
 {
-int l;
-char *v_s;
-char *e;
+	int length;
+	char *error;
+	char *ver_str;
+	char *msg;
 
-v_s = _phillipa(dsh->c);
-l = _rozy(dsh->a[0]) + _rozy(v_s);
-l += _rozy(dsh->ag[0]) + 24;
-e = malloc(sizeof(char) * (l + 1));
-if (e == 0)
-{
-free(e);
-free(v_s);
-return (NULL);
-}
-_phillpy(e, dsh->a[0]);
-_roscat(e, ": ");
-_roscat(e, v_s);
-_roscat(e, ": ");
-_roscat(e, dsh->ag[0]);
-_roscat(e, ": Permission denied\n");
-_roscat(e, "\0");
-free(v_s);
-return (e);
+	ver_str = aux_itoa(datash->counter);
+	msg = ": Unable to add/remove from environment\n";
+	length = _strlen(datash->av[0]) + _strlen(ver_str);
+	length += _strlen(datash->args[0]) + _strlen(msg) + 4;
+	error = malloc(sizeof(char) * (length + 1));
+	if (error == 0)
+	{
+		free(error);
+		free(ver_str);
+		return (NULL);
+	}
+
+	_strcpy(error, datash->av[0]);
+	_strcat(error, ": ");
+	_strcat(error, ver_str);
+	_strcat(error, ": ");
+	_strcat(error, datash->args[0]);
+	_strcat(error, msg);
+	_strcat(error, "\0");
+	free(ver_str);
+
+	return (error);
 }
 /**
- * phillevn - error message for env
- ** @dsh: data (counter, arguments)
- ** Return: error msg.
- ************************************/
-char *phillevn(phiros_shell *dsh)
+ * error_path_126 - error message for path and failure denied permission.
+ * @datash: data relevant (counter, arguments).
+ *
+ * Return: The error string.
+ */
+char *error_path_126(data_shell *datash)
 {
-int l;
-char *e;
-char *v_s;
-char *m;
+	int length;
+	char *ver_str;
+	char *error;
 
-v_s = _phillipa(dsh->c);
-m = ": Unable to add/remove from envi\n";
-l = _rozy(dsh->a[0]) + _rozy(v_s);
-l += _rozy(dsh->ag[0]) + _rozy(m) + 4;
-e = malloc(sizeof(char) * (l + 1));
-if (e == 0)
-{
-free(e);
-free(v_s);
-return (NULL);
-}
-
-_phillpy(e, dsh->a[0]);
-_roscat(e, ": ");
-_roscat(e, v_s);
-_roscat(e, ": ");
-_roscat(e, dsh->ag[0]);
-_roscat(e, m);
-_roscat(e, "\0");
-free(v_s);
-return (e);
+	ver_str = aux_itoa(datash->counter);
+	length = _strlen(datash->av[0]) + _strlen(ver_str);
+	length += _strlen(datash->args[0]) + 24;
+	error = malloc(sizeof(char) * (length + 1));
+	if (error == 0)
+	{
+		free(error);
+		free(ver_str);
+		return (NULL);
+	}
+	_strcpy(error, datash->av[0]);
+	_strcat(error, ": ");
+	_strcat(error, ver_str);
+	_strcat(error, ": ");
+	_strcat(error, datash->args[0]);
+	_strcat(error, ": Permission denied\n");
+	_strcat(error, "\0");
+	free(ver_str);
+	return (error);
 }

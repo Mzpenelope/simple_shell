@@ -1,105 +1,61 @@
-#include "phiros.h"
+#include "main.h"
+
 /**
- * phillly - frees phirosss
- ** @h: head of the linked list.
- ** Return: no return.
- ***************************************/
-void phillly(phirosss **h)
+ * add_rvar_node - adds a variable at the end
+ * of a r_var list.
+ * @head: head of the linked list.
+ * @lvar: length of the variable.
+ * @val: value of the variable.
+ * @lval: length of the value.
+ * Return: address of the head.
+ */
+r_var *add_rvar_node(r_var **head, int lvar, char *val, int lval)
 {
-phirosss *t;
-phirosss *cu;
+	r_var *new, *temp;
 
-if (h != NULL)
-{
-cu = *h;
-while ((t = cu) != NULL)
-{
-cu = cu->n;
-free(t);
+	new = malloc(sizeof(r_var));
+	if (new == NULL)
+		return (NULL);
+
+	new->len_var = lvar;
+	new->val = val;
+	new->len_val = lval;
+
+	new->next = NULL;
+	temp = *head;
+
+	if (temp == NULL)
+	{
+		*head = new;
+	}
+	else
+	{
+		while (temp->next != NULL)
+			temp = temp->next;
+		temp->next = new;
+	}
+
+	return (*head);
 }
-*h = NULL;
-}
-}
+
 /**
- * phillend - adds separator
- ** @h: head of linked list.
- ** @ss: separator found (; | &).
- ** Return: address of the head.
- ***************************************/
-phiross *phillend(phiross **h, char ss)
+ * free_rvar_list - frees a r_var list
+ * @head: head of the linked list.
+ * Return: no return.
+ */
+void free_rvar_list(r_var **head)
 {
-phiross *nw, *t;
+	r_var *temp;
+	r_var *curr;
 
-nw = malloc(sizeof(phiross));
-if (nw == NULL)
-return (NULL);
-
-nw->s = ss;
-nw->n = NULL;
-t = *h;
-
-if (t == NULL)
-{
-*h = nw;
-}
-else
-{
-while (t->n != NULL)
-t = t->n;
-t->n = nw;
-}
-
-return (*h);
-}
-/**
- * phills - adds a command line
- ** @h: head of linked list.
- ** @l: command line.
- ** Return: address of h.
- *********************************/
-phirosss *phills(phirosss **h, char *l)
-{
-phirosss *nw, *t;
-
-nw = malloc(sizeof(phirosss));
-if (nw == NULL)
-return (NULL);
-
-nw->l = l;
-nw->n = NULL;
-t = *h;
-
-if (t == NULL)
-{
-*h = nw;
-}
-else
-{
-while (t->n != NULL)
-t = t->n;
-t->n = nw;
-}
-
-return (*h);
-}
-/**
- * phily - frees a sep_list
- ** @h: head of the linked list.
- ** Return: no return.
- ***************************************/
-void phily(phiross **h)
-{
-phiross *t;
-phiross *cu;
-
-if (h != NULL)
-{
-cu = *h;
-while ((t = cu) != NULL)
-{
-cu = cu->n;
-free(t);
-}
-*h = NULL;
-}
+	if (head != NULL)
+	{
+		curr = *head;
+		while ((temp = curr) != NULL)
+		{
+			curr = curr->next;
+			free(temp);
+		}
+		*head = NULL;
+	}
 }

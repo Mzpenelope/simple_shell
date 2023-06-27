@@ -1,139 +1,129 @@
-#include "phiros.h"
-/**
- * phifo - copies info
- ** @n: name
- ** @v: value
- ** Return: nw.
- ************************/
-char *phifo(char *n, char *v)
-{
-char *nw;
-int me, ue, l;
+#include "main.h"
 
-me = _rozy(n);
-ue = _rozy(v);
-l = me + ue + 2;
-nw = malloc(sizeof(char) * (l));
-_roscat(nw, n);
-_roscat(nw, "=");
-_roscat(nw, v);
-_roscat(nw, "\0");
-
-return (nw);
-}
 /**
- * phillenvv - sets environment var
- * @n: name of environment var
- * @v: value of environment var
- * @dsh: data struct
- * Return: no return
+ * _strdup - duplicates a str in the heap memory.
+ * @s: Type char pointer str
+ * Return: duplicated str
  */
-void phillenvv(char *n, char *v, phiros_shell *dsh)
+char *_strdup(const char *s)
 {
-int z;
-char *r, *p;
+	char *new;
+	size_t len;
 
-for (z = 0; dsh->_environ[z]; z++)
-{
-r = _rosphi(dsh->_environ[z]);
-p = _rok(r, "=");
-if (_roscmp(p, n) == 0)
-{
-free(dsh->_environ[z]);
-dsh->_environ[z] = phifo(p, v);
-free(r);
-return;
-}
-free(r);
+	len = _strlen(s);
+	new = malloc(sizeof(char) * (len + 1));
+	if (new == NULL)
+		return (NULL);
+	_memcpy(new, s, len + 1);
+	return (new);
 }
 
-dsh->_environ = _roloc(dsh->_environ, z, sizeof(char *) * (z + 2));
-dsh->_environ[z] = phifo(n, v);
-dsh->_environ[z + 1] = NULL;
-}
 /**
- * rossenvv - compares env var names
- ** @dsh: data relevant
- ** Return: 1 on success.
- ************************************/
-int rossenvv(phiros_shell *dsh)
+ * _strlen - Returns the lenght of a string.
+ * @s: Type char pointer
+ * Return: Always 0.
+ */
+int _strlen(const char *s)
 {
+	int len;
 
-if (dsh->ag[1] == NULL || dsh->ag[2] == NULL)
-{
-phirror(dsh, -1);
-return (1);
+	for (len = 0; s[len] != 0; len++)
+	{
+	}
+	return (len);
 }
 
-phillenvv(dsh->ag[1], dsh->ag[2], dsh);
-
-return (1);
-}
 /**
- * unrosee - deletes env var
- ** @dsh: data
- ** Return: 1 on success.
- *****************************/
-int unrosee(phiros_shell *dsh)
+ * cmp_chars - compare chars of strings
+ * @str: input string.
+ * @delim: delimiter.
+ *
+ * Return: 1 if are equals, 0 if not.
+ */
+int cmp_chars(char str[], const char *delim)
 {
-char **z;
-char *r, *p;
-int a, b, c;
+	unsigned int i, j, k;
 
-if (dsh->ag[1] == NULL)
-{
-phirror(dsh, -1);
-return (1);
+	for (i = 0, k = 0; str[i]; i++)
+	{
+		for (j = 0; delim[j]; j++)
+		{
+			if (str[i] == delim[j])
+			{
+				k++;
+				break;
+			}
+		}
+	}
+	if (i == k)
+		return (1);
+	return (0);
 }
-c = -1;
-for (a = 0; dsh->_environ[a]; a++)
-{
-r = _rosphi(dsh->_environ[a]);
-p = _rok(r, "=");
-if (_roscmp(p, dsh->ag[1]) == 0)
-{
-c = a;
-}
-free(r);
-}
-if (c == -1)
-{
-phirror(dsh, -1);
-return (1);
-}
-z = malloc(sizeof(char *) * (a));
-for (a = b = 0; dsh->_environ[a]; a++)
-{
-if (a != c)
-{
-z[b] = dsh->_environ[a];
-b++;
-}
-}
-z[b] = NULL;
-free(dsh->_environ[c]);
-free(dsh->_environ);
-dsh->_environ = z;
-return (1);
-}
+
 /**
- * phillipvnn - compares env var
- ** @v: name of environment var
- ** @e: name passed
- ** Return: 0 or another value
- ********************************/
-int phillipvnn(const char *v, const char *e)
+ * _strtok - splits a string by some delimiter.
+ * @str: input string.
+ * @delim: delimiter.
+ *
+ * Return: string splited.
+ */
+char *_strtok(char str[], const char *delim)
 {
-int u;
+	static char *splitted, *str_end;
+	char *str_start;
+	unsigned int i, bool;
 
-for (u = 0; v[u] != '='; u++)
+	if (str != NULL)
+	{
+		if (cmp_chars(str, delim))
+			return (NULL);
+		splitted = str; /*Store first address*/
+		i = _strlen(str);
+		str_end = &str[i]; /*Store last address*/
+	}
+	str_start = splitted;
+	if (str_start == str_end) /*Reaching the end*/
+		return (NULL);
+
+	for (bool = 0; *splitted; splitted++)
+	{
+		/*Breaking loop finding the next token*/
+		if (splitted != str_start)
+			if (*splitted && *(splitted - 1) == '\0')
+				break;
+		/*Replacing delimiter for null char*/
+		for (i = 0; delim[i]; i++)
+		{
+			if (*splitted == delim[i])
+			{
+				*splitted = '\0';
+				if (splitted == str_start)
+					str_start++;
+				break;
+			}
+		}
+		if (bool == 0 && *splitted) /*Str != Delim*/
+			bool = 1;
+	}
+	if (bool == 0) /*Str == Delim*/
+		return (NULL);
+	return (str_start);
+}
+
+/**
+ * _isdigit - defines if string passed is a number
+ *
+ * @s: input string
+ * Return: 1 if string is a number. 0 in other case.
+ */
+int _isdigit(const char *s)
 {
-if (v[u] != e[u])
-{
-return (0);
-}
-}
+	unsigned int i;
 
-return (u + 1);
+	for (i = 0; s[i]; i++)
+	{
+		if (s[i] < 48 || s[i] > 57)
+			return (0);
+	}
+	return (1);
 }
-

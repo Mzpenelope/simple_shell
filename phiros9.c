@@ -1,85 +1,106 @@
-#include "phiros.h"
-/**
- * _rosy - copies info b/w void pointers.
- ** @np: destination pointer.
- ** @p: source pointer.
- ** @s: size of new pointer
- ** Return: no return.
- *****************************************/
-void _rosy(void *np, const void *p, unsigned int s)
-{
-char *rosp = (char *)p;
-char *rosnp = (char *)np;
-unsigned int u;
+#include "main.h"
 
-for (u = 0; u < s; u++)
-rosnp[u] = rosp[u];
+/**
+ * _strcat - concatenate two strings
+ * @dest: char pointer the dest of the copied str
+ * @src: const char pointer the source of str
+ * Return: the dest
+ */
+char *_strcat(char *dest, const char *src)
+{
+	int i;
+	int j;
+
+	for (i = 0; dest[i] != '\0'; i++)
+		;
+
+	for (j = 0; src[j] != '\0'; j++)
+	{
+		dest[i] = src[j];
+		i++;
+	}
+
+	dest[i] = '\0';
+	return (dest);
 }
 /**
- * _roloc - reallocates memblock of double pointer.
- ** @p: double pointer to previous mem
- ** @os: size, in bytes, of p.
- ** @ns: size, in bytes, ofnew memblock.
- ** Return: p.
- ** if ns == os, returns p without changes.
- ** if malloc fails, returns NULL.
- ***************************************************/
-char **_roloc(char **p, unsigned int os, unsigned int ns)
+ * *_strcpy - Copies the string pointed to by src.
+ * @dest: Type char pointer the dest of the copied str
+ * @src: Type char pointer the source of str
+ * Return: the dest.
+ */
+char *_strcpy(char *dest, char *src)
 {
-char **np;
-unsigned int u;
 
-if (p == NULL)
-return (malloc(sizeof(char *) * ns));
+	size_t a;
 
-if (ns == os)
-return (p);
+	for (a = 0; src[a] != '\0'; a++)
+	{
+		dest[a] = src[a];
+	}
+	dest[a] = '\0';
 
-np = malloc(sizeof(char *) * ns);
-if (np == NULL)
-return (NULL);
-
-for (u = 0; u < os; u++)
-np[u] = p[u];
-
-free(p);
-
-return (np);
+	return (dest);
 }
 /**
- * rolok - reallocates memblock.
- ** @p: pointer to the mem previously allocated.
- ** @os: size, in bytes, of allocated space of p.
- ** @ns: size, in bytes, of new memblock.
- ** Return: p.
- ** if ns == os, returns p without changes.
- ** if malloc fails, returns NULL.
- ***************************************************/
-void *rolok(void *p, unsigned int os, unsigned int ns)
+ * _strcmp - Function that compares two strings.
+ * @s1: type str compared
+ * @s2: type str compared
+ * Return: Always 0.
+ */
+int _strcmp(char *s1, char *s2)
 {
-void *np;
+	int i;
 
-if (p == NULL)
-return (malloc(ns));
+	for (i = 0; s1[i] == s2[i] && s1[i]; i++)
+		;
 
-if (ns == 0)
-{
-free(p);
-return (NULL);
+	if (s1[i] > s2[i])
+		return (1);
+	if (s1[i] < s2[i])
+		return (-1);
+	return (0);
 }
+/**
+ * _strchr - locates a character in a string,
+ * @s: string.
+ * @c: character.
+ * Return: the pointer to the first occurrence of the character c.
+ */
+char *_strchr(char *s, char c)
+{
+	unsigned int i = 0;
 
-if (ns == os)
-return (p);
+	for (; *(s + i) != '\0'; i++)
+		if (*(s + i) == c)
+			return (s + i);
+	if (*(s + i) == c)
+		return (s + i);
+	return ('\0');
+}
+/**
+ * _strspn - gets the length of a prefix substring.
+ * @s: initial segment.
+ * @accept: accepted bytes.
+ * Return: the number of accepted bytes.
+ */
+int _strspn(char *s, char *accept)
+{
+	int i, j, bool;
 
-np = malloc(ns);
-if (np == NULL)
-return (NULL);
-
-if (ns < os)
-_rosy(np, p, ns);
-else
-_rosy(np, p, os);
-
-free(p);
-return (np);
+	for (i = 0; *(s + i) != '\0'; i++)
+	{
+		bool = 1;
+		for (j = 0; *(accept + j) != '\0'; j++)
+		{
+			if (*(s + i) == *(accept + j))
+			{
+				bool = 0;
+				break;
+			}
+		}
+		if (bool == 1)
+			break;
+	}
+	return (i);
 }

@@ -1,197 +1,100 @@
-#include "phiros.h"
+#include "main.h"
+
 /**
- * isphilly - checks ":" in cd
- ** @p: char pointer
- ** @u: int pointer
- ** Return: 1 if p is searchable in cd, else 0
- **************************************************/
-int isphilly(char *p, int *u)
+ * get_len - Get the lenght of a number.
+ * @n: type int number.
+ * Return: Lenght of a number.
+ */
+int get_len(int n)
 {
-if (p[*u] == ':')
-return (1);
+	unsigned int n1;
+	int lenght = 1;
 
-while (p[*u] != ':' && p[*u])
-{
-*u += 1;
-}
+	if (n < 0)
+	{
+		lenght++;
+		n1 = n * -1;
+	}
+	else
+	{
+		n1 = n;
+	}
+	while (n1 > 9)
+	{
+		lenght++;
+		n1 = n1 / 10;
+	}
 
-if (p[*u])
-*u += 1;
-
-return (0);
-}
-/**
- *roich - locates command
- ** @c: command name
- ** @n: env var
- ** Return: location of command.
- **********************************/
-char *roich(char *c, char **n)
-{
-char *p, *h, *t, *d;
-int r, l, u;
-struct stat pr;
-
-p = _phillienx("PATH", n);
-if (p)
-{
-h = _rosphi(p);
-l = _rozy(c);
-t = _rok(h, ":");
-u = 0;
-while (t != NULL)
-{
-if (isphilly(p, &u))
-if (stat(c, &pr) == 0)
-return (c);
-r = _rozy(t);
-d = malloc(r + l + 2);
-_phillpy(d, t);
-_roscat(d, "/");
-_roscat(d, c);
-_roscat(d, "\0");
-if (stat(d, &pr) == 0)
-{
-free(h);
-return (d);
-}
-free(d);
-t = _rok(NULL, ":");
-}
-free(h);
-if (stat(c, &pr) == 0)
-return (c);
-return (NULL);
-}
-if (c[0] == '/')
-if (stat(c, &pr) == 0)
-return (c);
-return (NULL);
+	return (lenght);
 }
 /**
- * rosutable - determines if is an executable
- ** @dsh: data struct
- ** Return: 0 if false, other number if true
- ********************************************/
-int rosutable(phiros_shell *dsh)
+ * aux_itoa - function converts int to string.
+ * @n: type int number
+ * Return: String.
+ */
+char *aux_itoa(int n)
 {
-struct stat pr;
-int u;
-char *enter;
+	unsigned int n1;
+	int lenght = get_len(n);
+	char *buffer;
 
-enter = dsh->ag[0];
-for (u = 0; enter[u]; u++)
-{
-if (enter[u] == '.')
-{
-if (enter[u + 1] == '.')
-return (0);
-if (enter[u + 1] == '/')
-continue;
-else
-break;
-}
-else if (enter[u] == '/' && u != 0)
-{
-if (enter[u + 1] == '.')
-continue;
-u++;
-break;
-}
-else
-break;
-}
-if (u == 0)
-return (0);
+	buffer = malloc(sizeof(char) * (lenght + 1));
+	if (buffer == 0)
+		return (NULL);
 
-if (stat(enter + u, &pr) == 0)
-{
-return (u);
+	*(buffer + lenght) = '\0';
+
+	if (n < 0)
+	{
+		n1 = n * -1;
+		buffer[0] = '-';
+	}
+	else
+	{
+		n1 = n;
+	}
+
+	lenght--;
+	do {
+		*(buffer + lenght) = (n1 % 10) + '0';
+		n1 = n1 / 10;
+		lenght--;
+	}
+	while (n1 > 0)
+		;
+	return (buffer);
 }
-phirror(dsh, 127);
-return (-1);
-}
+
 /**
- * pheck - checks if user has permissions to access
- ** @d: destination dir
- ** @dsh: data struct
- ** Return: 1 if there is an error, 0 if not
- ****************************************************/
-int pheck(char *d, phiros_shell *dsh)
+ * _atoi - converts a string to an integer.
+ * @s: input string.
+ * Return: integer.
+ */
+int _atoi(char *s)
 {
-if (d == NULL)
-{
-phirror(dsh, 127);
-return (1);
-}
+	unsigned int count = 0, size = 0, oi = 0, pn = 1, m = 1, i;
 
-if (_roscmp(dsh->ag[0], d) != 0)
-{
-if (access(d, X_OK) == -1)
-{
-phirror(dsh, 126);
-free(d);
-return (1);
-}
-free(d);
-}
-else
-{
-if (access(dsh->ag[0], X_OK) == -1)
-{
-phirror(dsh, 126);
-return (1);
-}
-}
+	while (*(s + count) != '\0')
+	{
+		if (size > 0 && (*(s + count) < '0' || *(s + count) > '9'))
+			break;
 
-return (0);
-}
-/**
- * phexec - executes command lines
- ** @dsh: data
- ** Return: 1 on success.
- ***********************************/
-int phexec(phiros_shell *dsh)
-{
-pid_t a;
-pid_t b;
-int s;
-int e;
-char *d;
-(void) b;
+		if (*(s + count) == '-')
+			pn *= -1;
 
-e = rosutable(dsh);
-if (e == -1)
-return (1);
-if (e == 0)
-{
-d = roich(dsh->ag[0], dsh->_environ);
-if (pheck(d, dsh) == 1)
-return (1);
-}
+		if ((*(s + count) >= '0') && (*(s + count) <= '9'))
+		{
+			if (size > 0)
+				m *= 10;
+			size++;
+		}
+		count++;
+	}
 
-a = fork();
-if (a == 0)
-{
-if (e == 0)
-d = roich(dsh->ag[0], dsh->_environ);
-else
-d = dsh->ag[0];
-execve(d + e, dsh->ag, dsh->_environ);
+	for (i = count - size; i < count; i++)
+	{
+		oi = oi + ((*(s + i) - 48) * m);
+		m /= 10;
+	}
+	return (oi * pn);
 }
-else if (a < 0)
-{
-perror(dsh->a[0]);
-return (1);
-}
-else
-{
-do {
-b = waitpid(a, &s, WUNTRACED);
-} while (!WIFEXITED(s) && !WIFSIGNALED(s));
-}
-
-dsh->status = s / 256;
-return (1);
-}
-

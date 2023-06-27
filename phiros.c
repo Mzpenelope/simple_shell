@@ -1,66 +1,73 @@
-#include "phiros.h"
+#include "main.h"
+
 /**
- * fdiros - frees data struct
- ** @dsh: data struct
- ** Return: no return
- ****************************/
-void fdiros(phiros_shell *dsh)
+ * free_data - frees data structure
+ *
+ * @datash: data structure
+ * Return: no return
+ */
+void free_data(data_shell *datash)
 {
-unsigned int u;
+	unsigned int i;
 
-for (u = 0; dsh->_environ[u]; u++)
-{
-free(dsh->_environ[u]);
+	for (i = 0; datash->_environ[i]; i++)
+	{
+		free(datash->_environ[i]);
+	}
+
+	free(datash->_environ);
+	free(datash->pid);
 }
 
-free(dsh->_environ);
-free(dsh->pid);
-}
 /**
- * phrita - Initialize data struct
- ** @dsh: data struct
- ** @a: arg vec
- ** Return: no return
- **********************************/
-void phrita(phiros_shell *dsh, char **a)
+ * set_data - Initialize data structure
+ *
+ * @datash: data structure
+ * @av: argument vector
+ * Return: no return
+ */
+void set_data(data_shell *datash, char **av)
 {
-unsigned int u;
+	unsigned int i;
 
-dsh->a = a;
-dsh->enter = NULL;
-dsh->ag = NULL;
-dsh->status = 0;
-dsh->c = 1;
+	datash->av = av;
+	datash->input = NULL;
+	datash->args = NULL;
+	datash->status = 0;
+	datash->counter = 1;
 
-for (u = 0; environ[u]; u++)
-;
+	for (i = 0; environ[i]; i++)
+		;
 
-dsh->_environ = malloc(sizeof(char *) * (u + 1));
+	datash->_environ = malloc(sizeof(char *) * (i + 1));
 
-for (u = 0; environ[u]; u++)
-{
-dsh->_environ[u] = _rosphi(environ[u]);
+	for (i = 0; environ[i]; i++)
+	{
+		datash->_environ[i] = _strdup(environ[i]);
+	}
+
+	datash->_environ[i] = NULL;
+	datash->pid = aux_itoa(getpid());
 }
 
-dsh->_environ[u] = NULL;
-dsh->pid = _phillipa(getpid());
-}
 /**
  * main - Entry point
- ** @c: arg count
- ** @v: arg vector
- ** Return: 0 on success.
- *******************************/
-int main(int c, char **v)
+ *
+ * @ac: argument count
+ * @av: argument vector
+ *
+ * Return: 0 on success.
+ */
+int main(int ac, char **av)
 {
-phiros_shell dsh;
-(void) c;
+	data_shell datash;
+	(void) ac;
 
-signal(SIGINT, roget);
-phrita(&dsh, v);
-phillrop(&dsh);
-fdiros(&dsh);
-if (dsh.status < 0)
-return (255);
-return (dsh.status);
+	signal(SIGINT, get_sigint);
+	set_data(&datash, av);
+	shell_loop(&datash);
+	free_data(&datash);
+	if (datash.status < 0)
+		return (255);
+	return (datash.status);
 }
