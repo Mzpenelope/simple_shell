@@ -39,11 +39,11 @@ u++;
 
 dsh->_environ = malloc(sizeof(char *) * (u + 1));
 
-int i = 0;
-while (environ[i])
+int u = 0;
+while (environ[u])
 {
-dsh->_environ[i] = pr_strdup(environ[i]);
-i++;
+dsh->_environ[u] = pr_strdup(environ[u]);
+u++;
 }
 
 dsh->_environ[i] = NULL;
@@ -60,7 +60,7 @@ int phiros(int ac, char **av)
 	phiros_shell dsh;
 	(void) ac;
 
-	signal(SIGINT, get_sigint);
+	signal(SIGINT, pr_get_sigint);
 	s_data(&dsh, av);
 	s_loop(&dsh);
 	f_data(&dsh);
