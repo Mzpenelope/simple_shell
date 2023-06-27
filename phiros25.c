@@ -57,7 +57,7 @@ int pr_check_vars(r_var **h, char *in, char *st, phiros_shell *data)
 	{
 		if (in[x] == '$')
 		{
-			if (inxi + 1] == '?')
+			if (in[x + 1] == '?')
 				pr_add_rvar_node(h, 2, st, lst), x++;
 			else if (in[x + 1] == '$')
 				pr_add_rvar_node(h, 2, data->pid, lpd), x++;
