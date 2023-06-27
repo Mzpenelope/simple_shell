@@ -1,10 +1,10 @@
-#include "main.h"
+#include "phiros.h"
 
 /**
- * aux_help - Help info for builtin help.
+ * a_help - Help info for builtin help.
  * Return: no return
  */
-void aux_help(void)
+void a_help(void)
 {
 	char *help = "help: help [-dms] [pattern ...]\n";
 
@@ -15,10 +15,10 @@ void aux_help(void)
 	write(STDOUT_FILENO, help, pr_strlen(help));
 }
 /**
- * aux_help_alias - Help info for builtin alias.
+ * a_help_alias - Help info for builtin alias.
  * Return: no return
  */
-void aux_help_alias(void)
+void a_help_alias(void)
 {
 	char *help = "alias: alias [-p] [name[=value]...]\n";
 
@@ -27,10 +27,10 @@ void aux_help_alias(void)
 	write(STDOUT_FILENO, help, pr_strlen(help));
 }
 /**
- * aux_help_cd - Help info for builtin alias.
+ * a_help_cd - Help info for builtin alias.
  * Return: no return
  */
-void aux_help_cd(void)
+void a_help_cd(void)
 {
 	char *help = "cd: cd [-L|[-P [-e]] [-@]] [dir]\n";
 
