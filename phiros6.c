@@ -1,4 +1,4 @@
-#include "main.h"
+#include "phiros.h"
 
 /**
  * add_rvar_node - add up a variable
