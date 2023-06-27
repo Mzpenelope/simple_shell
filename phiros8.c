@@ -1,18 +1,17 @@
-#include "main.h"
-
+#include "phiros.h"
 /**
- * get_len - Get the lenght of the number.
+ *pr_get_len - Get the lenght of the number.
  * @n: the type int number.
  * Return: the lenght of the number.
  */
-int get_len(int n)
+int pr_get_len(int n)
 {
 	unsigned int n1;
-	int lenght = 1;
+	int lght = 1;
 
 	if (n < 0)
 	{
-		lenght++;
+		lght++;
 		n1 = n * -1;
 	}
 	else
@@ -21,28 +20,28 @@ int get_len(int n)
 	}
 	while (n1 > 9)
 	{
-		lenght++;
+		lght++;
 		n1 = n1 / 10;
 	}
 
-	return (lenght);
+	return (lght);
 }
 /**
- * aux_itoa - function changes int to string.
+ * pr_itoa - function changes int to string.
  * @n: the type int number
  * Return: a String.
  */
-char *aux_itoa(int n)
+char *pr_itoa(int n)
 {
 	unsigned int n1;
-	int lenght = get_len(n);
+	int lght = pr_get_len(n);
 	char *buffer;
 
-	buffer = malloc(sizeof(char) * (lenght + 1));
+	buffer = malloc(sizeof(char) * (lght + 1));
 	if (buffer == 0)
 		return (NULL);
 
-	*(buffer + lenght) = '\0';
+	*(buffer + lght) = '\0';
 
 	if (n < 0)
 	{
@@ -54,11 +53,11 @@ char *aux_itoa(int n)
 		n1 = n;
 	}
 
-	lenght--;
+	lght--;
 	do {
-		*(buffer + lenght) = (n1 % 10) + '0';
+		*(buffer + lght) = (n1 % 10) + '0';
 		n1 = n1 / 10;
-		lenght--;
+		lght--;
 	}
 	while (n1 > 0)
 		;
@@ -66,11 +65,11 @@ char *aux_itoa(int n)
 }
 
 /**
- * _atoi - changes a string to an integer.
+ * pr_atoi - changes a string to an integer.
  * @s: the input string.
  * Return: an integer.
  */
-int _atoi(char *s)
+int pr_atoi(char *s)
 {
 	unsigned int tally = 0, size = 0, oi = 0, pn = 1, m = 1, r;
 
