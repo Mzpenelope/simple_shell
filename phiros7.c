@@ -1,10 +1,10 @@
 #include "main.h"
 
 /**
- * _memcpy - copies information between void pointers.
- * @newptr: destination pointer.
- * @ptr: source pointer.
- * @size: size of the new pointer.
+ * _memcpy - copies infor betwixt void pointers.
+ * @newptr:the destination pointer.
+ * @ptr: the source pointer.
+ * @size: size of new pointer.
  *
  * Return: no return.
  */
@@ -12,15 +12,15 @@ void _memcpy(void *newptr, const void *ptr, unsigned int size)
 {
 	char *char_ptr = (char *)ptr;
 	char *char_newptr = (char *)newptr;
-	unsigned int i;
+	unsigned int r;
 
-	for (i = 0; i < size; i++)
-		char_newptr[i] = char_ptr[i];
+	for (r = 0; r < size; r++)
+		char_newptr[r] = char_ptr[r];
 }
 
 /**
- * _realloc - reallocates a memory block.
- * @ptr: pointer to the memory previously allocated.
+ * pr_realloc - reallocates the memory block.
+ * @ptr: pointer to the memory allocated previously
  * @old_size: size, in bytes, of the allocated space of ptr.
  * @new_size: new size, in bytes, of the new memory block.
  *
@@ -28,7 +28,7 @@ void _memcpy(void *newptr, const void *ptr, unsigned int size)
  * if new_size == old_size, returns ptr without changes.
  * if malloc fails, returns NULL.
  */
-void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+void *pr_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 {
 	void *newptr;
 
@@ -59,7 +59,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 
 /**
  * _reallocdp - reallocates a memory block of a double pointer.
- * @ptr: double pointer to the memory previously allocated.
+ * @ptr: double pointer to the memory allocated previously.
  * @old_size: size, in bytes, of the allocated space of ptr.
  * @new_size: new size, in bytes, of the new memory block.
  *
@@ -70,7 +70,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 char **_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size)
 {
 	char **newptr;
-	unsigned int i;
+	unsigned int r;
 
 	if (ptr == NULL)
 		return (malloc(sizeof(char *) * new_size));
@@ -82,8 +82,8 @@ char **_reallocdp(char **ptr, unsigned int old_size, unsigned int new_size)
 	if (newptr == NULL)
 		return (NULL);
 
-	for (i = 0; i < old_size; i++)
-		newptr[i] = ptr[i];
+	for (r = 0; r < old_size; r++)
+		newptr[r] = ptr[r];
 
 	free(ptr);
 

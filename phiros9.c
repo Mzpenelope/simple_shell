@@ -1,99 +1,99 @@
 #include "main.h"
 
 /**
- * _strcat - concatenate two strings
+ * pr_strcat - concatenates two strings
  * @dest: char pointer the dest of the copied str
  * @src: const char pointer the source of str
- * Return: the dest
+ * Return: dest
  */
-char *_strcat(char *dest, const char *src)
+char *pr_strcat(char *dest, const char *src)
 {
-	int i;
-	int j;
+	int r;
+	int m;
 
-	for (i = 0; dest[i] != '\0'; i++)
+	for (r = 0; dest[r] != '\0'; r++)
 		;
 
-	for (j = 0; src[j] != '\0'; j++)
+	for (m = 0; src[m] != '\0'; m++)
 	{
-		dest[i] = src[j];
-		i++;
+		dest[r] = src[m];
+		r++;
 	}
 
-	dest[i] = '\0';
+	dest[r] = '\0';
 	return (dest);
 }
 /**
- * *_strcpy - Copies the string pointed to by src.
- * @dest: Type char pointer the dest of the copied str
+ * *pr_strcpy - duplicates the string pointed to by src.
+ * @dest: Type char pointer the dest of the dulpicated str
  * @src: Type char pointer the source of str
- * Return: the dest.
+ * Return: dest.
  */
-char *_strcpy(char *dest, char *src)
+char *pr_strcpy(char *dest, char *src)
 {
 
-	size_t a;
+	size_t z;
 
-	for (a = 0; src[a] != '\0'; a++)
+	for (z = 0; src[z] != '\0'; z++)
 	{
-		dest[a] = src[a];
+		dest[z] = src[z];
 	}
-	dest[a] = '\0';
+	dest[z] = '\0';
 
 	return (dest);
 }
 /**
- * _strcmp - Function that compares two strings.
+ * pr_strcmp - Function that compares two strings.
  * @s1: type str compared
  * @s2: type str compared
  * Return: Always 0.
  */
-int _strcmp(char *s1, char *s2)
+int pr_strcmp(char *s1, char *s2)
 {
-	int i;
+	int y;
 
-	for (i = 0; s1[i] == s2[i] && s1[i]; i++)
+	for (y = 0; s1[y] == s2[y] && s1[y]; y++)
 		;
 
-	if (s1[i] > s2[i])
+	if (s1[y] > s2[y])
 		return (1);
-	if (s1[i] < s2[i])
+	if (s1[y] < s2[y])
 		return (-1);
 	return (0);
 }
 /**
- * _strchr - locates a character in a string,
+ * pr_strchr - locates a character in a string,
  * @s: string.
  * @c: character.
  * Return: the pointer to the first occurrence of the character c.
  */
-char *_strchr(char *s, char c)
+char *pr_strchr(char *s, char c)
 {
-	unsigned int i = 0;
+	unsigned int p = 0;
 
-	for (; *(s + i) != '\0'; i++)
-		if (*(s + i) == c)
-			return (s + i);
-	if (*(s + i) == c)
-		return (s + i);
+	for (; *(s + p) != '\0'; p++)
+		if (*(s + p) == c)
+			return (s + p);
+	if (*(s + p) == c)
+		return (s + p);
 	return ('\0');
 }
 /**
- * _strspn - gets the length of a prefix substring.
+ * pr_strspn - acquires the length of a prefix substring.
  * @s: initial segment.
  * @accept: accepted bytes.
- * Return: the number of accepted bytes.
+ * Return: number of accepted bytes.
  */
-int _strspn(char *s, char *accept)
+int pr_strspn(char *s, char *accept)
 {
-	int i, j, bool;
+	int r, d, bool;
 
-	for (i = 0; *(s + i) != '\0'; i++)
+	for (r = 0; *(s + r) != '\0'; r++)
 	{
 		bool = 1;
-		for (j = 0; *(accept + j) != '\0'; j++)
+		for (d = 0; *(accept + d) != '\0'; d++)
 		{
-			if (*(s + i) == *(accept + j))
+			if (*(s + r) == *(accept + d))
 			{
 				bool = 0;
 				break;
@@ -102,5 +102,5 @@ int _strspn(char *s, char *accept)
 		if (bool == 1)
 			break;
 	}
-	return (i);
+	return (r);
 }

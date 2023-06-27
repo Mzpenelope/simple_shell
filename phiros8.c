@@ -1,9 +1,9 @@
 #include "main.h"
 
 /**
- * get_len - Get the lenght of a number.
- * @n: type int number.
- * Return: Lenght of a number.
+ * get_len - Get the lenght of the number.
+ * @n: the type int number.
+ * Return: the lenght of the number.
  */
 int get_len(int n)
 {
@@ -28,9 +28,9 @@ int get_len(int n)
 	return (lenght);
 }
 /**
- * aux_itoa - function converts int to string.
- * @n: type int number
- * Return: String.
+ * aux_itoa - function changes int to string.
+ * @n: the type int number
+ * Return: a String.
  */
 char *aux_itoa(int n)
 {
@@ -66,34 +66,34 @@ char *aux_itoa(int n)
 }
 
 /**
- * _atoi - converts a string to an integer.
- * @s: input string.
- * Return: integer.
+ * _atoi - changes a string to an integer.
+ * @s: the input string.
+ * Return: an integer.
  */
 int _atoi(char *s)
 {
-	unsigned int count = 0, size = 0, oi = 0, pn = 1, m = 1, i;
+	unsigned int tally = 0, size = 0, oi = 0, pn = 1, m = 1, r;
 
-	while (*(s + count) != '\0')
+	while (*(s + tally) != '\0')
 	{
-		if (size > 0 && (*(s + count) < '0' || *(s + count) > '9'))
+		if (size > 0 && (*(s + tally) < '0' || *(s + tally) > '9'))
 			break;
 
-		if (*(s + count) == '-')
+		if (*(s + tally) == '-')
 			pn *= -1;
 
-		if ((*(s + count) >= '0') && (*(s + count) <= '9'))
+		if ((*(s + tally) >= '0') && (*(s + tally) <= '9'))
 		{
 			if (size > 0)
 				m *= 10;
 			size++;
 		}
-		count++;
+		tally++;
 	}
 
-	for (i = count - size; i < count; i++)
+	for (r = tally - size; r < tally; r++)
 	{
-		oi = oi + ((*(s + i) - 48) * m);
+		oi = oi + ((*(s + r) - 48) * m);
 		m /= 10;
 	}
 	return (oi * pn);
