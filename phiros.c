@@ -1,4 +1,4 @@
-#include "main.h"
+#include "phiros.h"
 /**
  * f_data - frees data struct
  * @dsh: data struct
@@ -55,7 +55,7 @@ dsh->pid = pr_itoa(getpid());
  * @av: argument vector
  * Return: 0 on success.
  */
-int main(int ac, char **av)
+int phiros(int ac, char **av)
 {
 	phiros_shell dsh;
 	(void) ac;
