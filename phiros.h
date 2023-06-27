@@ -221,5 +221,9 @@ int pr_is_executable(phiros_shell *dsh);
 int pr_check_error_cmd(char *d, phiros_shell *dsh);
 int pr_cmd_exec(phiros_shell *dsh);
 
+/* phiros2.c */
+char *e_e(phiros_shell *dsh);
+char *e_p_126(phiros_shell *dsh);
+
 
 #endif
