@@ -9,7 +9,7 @@
  * @lval:the length of value.
  * Return: the address of the head.
  */
-r_var *add_rvar_node(r_var **head, int lvar, char *val, int lval)
+r_var *pr_add_rvar_node(r_var **head, int lvar, char *val, int lval)
 {
 	r_var *new, *temp;
 
@@ -43,7 +43,7 @@ r_var *add_rvar_node(r_var **head, int lvar, char *val, int lval)
  * @head: head of linked list.
  * Return: no return.
  */
-void free_rvar_list(r_var **head)
+void pr_free_rvar_list(r_var **head)
 {
 	r_var *temp;
 	r_var *curr;
