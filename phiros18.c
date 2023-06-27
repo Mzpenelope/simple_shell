@@ -1,22 +1,21 @@
-#include "main.h"
+#include "phiros.h"
 
 /**
- * exec_line - finds builtins and commands
- *
- * @datash: data relevant (args)
+ * pr_exec_line - finds builtins and commands
+ * @dsh: data relevant (args)
  * Return: 1 on success.
  */
-int exec_line(data_shell *datash)
+int pr_exec_line(phiros_shell *dsh)
 {
-	int (*builtin)(data_shell *datash);
+	int (*builtin)(phiros_shell *dsh);
 
-	if (datash->args[0] == NULL)
+	if (dsh->args[0] == NULL)
 		return (1);
 
-	builtin = get_builtin(datash->args[0]);
+	builtin = pr_get_builtin(dsh->args[0]);
 
 	if (builtin != NULL)
-		return (builtin(datash));
+		return (builtin(dsh));
 
-	return (cmd_exec(datash));
+	return (pr_cmd_exec(dsh));
 }
