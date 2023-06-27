@@ -1,48 +1,47 @@
-#include "main.h"
-
+#include "phiros.h"
 /**
- * bring_line - assigns the line var for get_line
- * @lineptr: Buffer that store the input str
+ * pr_bring_line - assigns the line var for get_line
+ * @lptr: Buffer that store the input str
  * @buffer: str that is been called to line
- * @n: size of line
- * @j: size of buffer
+ * @i: size of line
+ * @k: size of buffer
  */
-void bring_line(char **lineptr, size_t *n, char *buffer, size_t j)
+void pr_bring_line(char **lptr, size_t *i, char *buffer, size_t k)
 {
 
-	if (*lineptr == NULL)
+	if (*lptr == NULL)
 	{
 		if  (j > BUFSIZE)
-			*n = j;
+			*i = k;
 
 		else
-			*n = BUFSIZE;
-		*lineptr = buffer;
+			*i = BUFSIZE;
+		*lptr = buffer;
 	}
-	else if (*n < j)
+	else if (*i < k)
 	{
 		if (j > BUFSIZE)
-			*n = j;
+			*i = k;
 		else
-			*n = BUFSIZE;
-		*lineptr = buffer;
+			*i = BUFSIZE;
+		*lptr = buffer;
 	}
 	else
 	{
-		_strcpy(*lineptr, buffer);
+		pr_strcpy(*lptr, buffer);
 		free(buffer);
 	}
 }
 /**
- * get_line - Read inpt from stream
- * @lineptr: buffer that stores the input
- * @n: size of lineptr
+ * pr_get_line - Read inpt from stream
+ * @lptr: buffer that stores the input
+ * @i: size of lineptr
  * @stream: stream to read from
  * Return: The number of bytes
  */
-ssize_t get_line(char **lineptr, size_t *n, FILE *stream)
+ssize_t pr_get_line(char **lptr, size_t *i, FILE *stream)
 {
-	int i;
+	int n;
 	static ssize_t input;
 	ssize_t retval;
 	char *buffer;
@@ -59,26 +58,26 @@ ssize_t get_line(char **lineptr, size_t *n, FILE *stream)
 		return (-1);
 	while (t != '\n')
 	{
-		i = read(STDIN_FILENO, &t, 1);
-		if (i == -1 || (i == 0 && input == 0))
+		n = read(STDIN_FILENO, &t, 1);
+		if (n == -1 || (n == 0 && input == 0))
 		{
 			free(buffer);
 			return (-1);
 		}
-		if (i == 0 && input != 0)
+		if (n == 0 && input != 0)
 		{
 			input++;
 			break;
 		}
 		if (input >= BUFSIZE)
-			buffer = _realloc(buffer, input, input + 1);
+			buffer = pr_realloc(buffer, input, input + 1);
 		buffer[input] = t;
 		input++;
 	}
 	buffer[input] = '\0';
-	bring_line(lineptr, n, buffer, input);
+	pr_bring_line(lptr, i, buffer, input);
 	retval = input;
-	if (i != 0)
+	if (n != 0)
 		input = 0;
 	return (retval);
 }
