@@ -22,9 +22,9 @@ int pr_get_error(phiros_shell *dsh, int eva)
 		break;
 	case 2:
 		if (pr_strcmp("exit", dsh->args[0]) == 0)
-			error = e_e_s(dsh);
+			e = e_e_s(dsh);
 		else if (pr_strcmp("cd", dsh->args[0]) == 0)
-			error = e_g_cd(dsh);
+			e = e_g_cd(dsh);
 		break;
 	}
 
