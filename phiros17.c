@@ -36,7 +36,7 @@ void pr_set_env(char *name, char *value, phiros_shell *dsh)
 
 	for (u = 0; dsh->_environ[u]; u++)
 	{
-		var_env = pr_strdup(dsh->_environ[i]);
+		var_env = pr_strdup(dsh->_environ[u]);
 		name_env = pr_strtok(var_env, "=");
 		if (pr_strcmp(name_env, name) == 0)
 		{
