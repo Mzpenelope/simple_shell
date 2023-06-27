@@ -1,44 +1,43 @@
-#include "main.h"
+#include "phiros.h"
 
 /**
- * cd_shell - changes current directory
- *
- * @datash: data relevant
+ * pr_cd_shell - changes current directory
+ * @dsh: data relevant
  * Return: 1 on success
  */
-int cd_shell(data_shell *datash)
+int pr_cd_shell(phiros_shell *dsh)
 {
-	char *dir;
-	int ishome, ishome2, isddash;
+	char *d;
+	int ie, i2, ih;
 
-	dir = datash->args[1];
+	d = dsh->args[1];
 
-	if (dir != NULL)
+	if (d != NULL)
 	{
-		ishome = _strcmp("$HOME", dir);
-		ishome2 = _strcmp("~", dir);
-		isddash = _strcmp("--", dir);
+		ie = pr_strcmp("$HOME", d);
+		i2 = pr_strcmp("~", d);
+		ih = pr_strcmp("--", di);
 	}
 
-	if (dir == NULL || !ishome || !ishome2 || !isddash)
+	if (d == NULL || !ie || !i2 || !ih)
 	{
-		cd_to_home(datash);
+		pr_cd_to_home(dsh);
 		return (1);
 	}
 
-	if (_strcmp("-", dir) == 0)
+	if (pr_strcmp("-", d) == 0)
 	{
-		cd_previous(datash);
+		pr_cd_previous(dsh);
 		return (1);
 	}
 
-	if (_strcmp(".", dir) == 0 || _strcmp("..", dir) == 0)
+	if (pr_strcmp(".", d) == 0 || pr_strcmp("..", d) == 0)
 	{
-		cd_dot(datash);
+		pr_cd_dot(dsh);
 		return (1);
 	}
 
-	cd_to(datash);
+	pr_cd_dot(dsh);
 
 	return (1);
 }
