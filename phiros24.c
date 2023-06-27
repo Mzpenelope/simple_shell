@@ -1,28 +1,24 @@
-#include "main.h"
-
+#include "phiros.h"
 /**
- * get_sigint - Handle the crtl + c call in prompt
+ * pr_get_sigint - Handle crtl + c call in prompt
  * @sig: Signal handler
  */
-void get_sigint(int sig)
+void pr_get_sigint(int sig)
 {
 	(void)sig;
 	write(STDOUT_FILENO, "\n^-^ ", 5);
 }
-
-
 /**
- * read_line - reads the input string.
- *
- * @i_eof: return value of getline function
+ * pr_read_line- reads the input string.
+ * @iff: return value of getline function
  * Return: input string
  */
-char *read_line(int *i_eof)
+char *pr_read_line(int *iff)
 {
 	char *input = NULL;
 	size_t bufsize = 0;
 
-	*i_eof = getline(&input, &bufsize, stdin);
+	*iff = getline(&input, &bufsize, stdin);
 
 	return (input);
 }
