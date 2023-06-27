@@ -1,107 +1,100 @@
-#include "main.h"
-
+#include "phiros.h"
 /**
- * copy_info - copies info to create
+ * pr_copy_info - copies info to create
  * a new env or alias
  * @name: name (env or alias)
  * @value: value (env or alias)
- *
  * Return: new env or alias.
  */
-char *copy_info(char *name, char *value)
+char *pr_copy_info(char *name, char *value)
 {
 	char *new;
 	int len_name, len_value, len;
 
-	len_name = _strlen(name);
-	len_value = _strlen(value);
+	len_name = pr_strlen(name);
+	len_value = pr_strlen(value);
 	len = len_name + len_value + 2;
 	new = malloc(sizeof(char) * (len));
-	_strcpy(new, name);
-	_strcat(new, "=");
-	_strcat(new, value);
-	_strcat(new, "\0");
+	pr_strcpy(new, name);
+	pr_strcat(new, "=");
+	pr_strcat(new, value);
+	pr_strcat(new, "\0");
 
 	return (new);
 }
-
 /**
- * set_env - sets an environment variable
- *
+ * pr_set_env - sets an environment variable
  * @name: name of the environment variable
  * @value: value of the environment variable
- * @datash: data structure (environ)
+ * @dsh: data structure (environ)
  * Return: no return
  */
-void set_env(char *name, char *value, data_shell *datash)
+void pr_set_env(char *name, char *value, phiros_shell *dsh)
 {
-	int i;
+	int u;
 	char *var_env, *name_env;
 
-	for (i = 0; datash->_environ[i]; i++)
+	for (u = 0; dsh->_environ[u]; u++)
 	{
-		var_env = _strdup(datash->_environ[i]);
-		name_env = _strtok(var_env, "=");
-		if (_strcmp(name_env, name) == 0)
+		var_env = pr_strdup(dsh->_environ[i]);
+		name_env = pr_strtok(var_env, "=");
+		if (pr_strcmp(name_env, name) == 0)
 		{
-			free(datash->_environ[i]);
-			datash->_environ[i] = copy_info(name_env, value);
+			free(dsh->_environ[u]);
+			dsh->_environ[u] = pr_copy_info(name_env, value);
 			free(var_env);
 			return;
 		}
 		free(var_env);
 	}
 
-	datash->_environ = _reallocdp(datash->_environ, i, sizeof(char *) * (i + 2));
-	datash->_environ[i] = copy_info(name, value);
-	datash->_environ[i + 1] = NULL;
+	dsh->_environ = pr_reallocdp(dsh->_environ, u, sizeof(char *) * (u + 2));
+	dsh->_environ[u] = pr_copy_info(name, value);
+	dsh->_environ[u + 1] = NULL;
 }
 
 /**
- * _setenv - compares env variables names
+ * pr_setenv - compares env variables names
  * with the name passed.
- * @datash: data relevant (env name and env value)
- *
+ * @dsh: data relevant (env name and env value)
  * Return: 1 on success.
  */
-int _setenv(data_shell *datash)
+int pr_setenv(phiros_shell *dsh)
 {
 
-	if (datash->args[1] == NULL || datash->args[2] == NULL)
+	if (dsh->args[1] == NULL || dsh->args[2] == NULL)
 	{
-		get_error(datash, -1);
+		pr_get_error(dsh, -1);
 		return (1);
 	}
 
-	set_env(datash->args[1], datash->args[2], datash);
+	pr_set_env(dsh->args[1], dsh->args[2], dsh);
 
 	return (1);
 }
 
 /**
- * _unsetenv - deletes a environment variable
- *
- * @datash: data relevant (env name)
- *
+ * pr_unsetenv - deletes a environment variable
+ * @dsh: data relevant (env name)
  * Return: 1 on success.
  */
-int _unsetenv(data_shell *datash)
+int pr_unsetenv(phiros_shell *dsh)
 {
 	char **realloc_environ;
 	char *var_env, *name_env;
 	int i, j, k;
 
-	if (datash->args[1] == NULL)
+	if (dsh->args[1] == NULL)
 	{
-		get_error(datash, -1);
+		pr_get_error(dsh, -1);
 		return (1);
 	}
 	k = -1;
-	for (i = 0; datash->_environ[i]; i++)
+	for (i = 0; dsh->_environ[i]; i++)
 	{
-		var_env = _strdup(datash->_environ[i]);
-		name_env = _strtok(var_env, "=");
-		if (_strcmp(name_env, datash->args[1]) == 0)
+		var_env = pr_strdup(dsh->_environ[i]);
+		name_env = pr_strtok(var_env, "=");
+		if (pr_strcmp(name_env, dsh->args[1]) == 0)
 		{
 			k = i;
 		}
@@ -109,21 +102,21 @@ int _unsetenv(data_shell *datash)
 	}
 	if (k == -1)
 	{
-		get_error(datash, -1);
+		pr_get_error(dsh, -1);
 		return (1);
 	}
 	realloc_environ = malloc(sizeof(char *) * (i));
-	for (i = j = 0; datash->_environ[i]; i++)
+	for (i = j = 0; dsh->_environ[i]; i++)
 	{
 		if (i != k)
 		{
-			realloc_environ[j] = datash->_environ[i];
+			realloc_environ[j] = dsh->_environ[i];
 			j++;
 		}
 	}
 	realloc_environ[j] = NULL;
-	free(datash->_environ[k]);
-	free(datash->_environ);
-	datash->_environ = realloc_environ;
+	free(dsh->_environ[k]);
+	free(dsh->_environ);
+	dsh->_environ = realloc_environ;
 	return (1);
 }
