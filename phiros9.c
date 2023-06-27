@@ -1,9 +1,8 @@
-#include "main.h"
-
+#include "phiros.h"
 /**
  * pr_strcat - concatenates two strings
- * @dest: char pointer the dest of the copied str
- * @src: const char pointer the source of str
+ * @dest: char pointer the dest of the copied string
+ * @src: const char pointer the source of string 
  * Return: dest
  */
 char *pr_strcat(char *dest, const char *src)
@@ -25,8 +24,8 @@ char *pr_strcat(char *dest, const char *src)
 }
 /**
  * *pr_strcpy - duplicates the string pointed to by src.
- * @dest: Type char pointer the dest of the dulpicated str
- * @src: Type char pointer the source of str
+ * @dest: Type char pointer the dest of the dulpicated string
+ * @src: Type char pointer the source of string
  * Return: dest.
  */
 char *pr_strcpy(char *dest, char *src)
