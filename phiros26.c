@@ -1,77 +1,74 @@
-#include "main.h"
+#include "phiros.h"
 
 /**
- * without_comment - deletes comments from the input
- *
+ * pr_without_comment - deletes comments from the input
  * @in: input string
  * Return: input without comments
  */
-char *without_comment(char *in)
+char *pr_without_comment(char *in)
 {
-	int i, up_to;
+	int u, u_to;
 
-	up_to = 0;
-	for (i = 0; in[i]; i++)
+	u_to = 0;
+	for (u = 0; in[u]; u++)
 	{
-		if (in[i] == '#')
+		if (in[u] == '#')
 		{
-			if (i == 0)
+			if (u == 0)
 			{
 				free(in);
 				return (NULL);
 			}
 
-			if (in[i - 1] == ' ' || in[i - 1] == '\t' || in[i - 1] == ';')
-				up_to = i;
+			if (in[u - 1] == ' ' || in[u - 1] == '\t' || in[u - 1] == ';')
+				u_to = u;
 		}
 	}
 
-	if (up_to != 0)
+	if (u_to != 0)
 	{
-		in = _realloc(in, i, up_to + 1);
-		in[up_to] = '\0';
+		in = pr_realloc(in, u, u_to + 1);
+		in[u_to] = '\0';
 	}
 
 	return (in);
 }
 
 /**
- * shell_loop - Loop of shell
- * @datash: data relevant (av, input, args)
- *
+ * s_loop - Loop of shell
+ * @dsh: data relevant (av, input, args)
  * Return: no return.
  */
-void shell_loop(data_shell *datash)
+void s_loop(phiros_shell *dsh)
 {
-	int loop, i_eof;
-	char *input;
+int loop, iff;
+char *input;
 
-	loop = 1;
-	while (loop == 1)
-	{
-		write(STDIN_FILENO, "^-^ ", 4);
-		input = read_line(&i_eof);
-		if (i_eof != -1)
-		{
-			input = without_comment(input);
-			if (input == NULL)
-				continue;
+for (loop = 1; loop == 1;)
+{
+write(STDIN_FILENO, "^-^ ", 4);
+input = pr_read_line(&iff);
+if (iff != -1)
+{
+input = pr_without_comment(input);
+if (input == NULL)
+continue;
 
-			if (check_syntax_error(datash, input) == 1)
-			{
-				datash->status = 2;
-				free(input);
-				continue;
-			}
-			input = rep_var(input, datash);
-			loop = split_commands(datash, input);
-			datash->counter += 1;
-			free(input);
-		}
-		else
-		{
-			loop = 0;
-			free(input);
-		}
-	}
+if (c_s_e(dsh, input) == 1)
+{
+dsh->status = 2;
+free(input);
+continue;
+}
+input = rep_variable(input, dsh);
+loop = pr_split_commands(dsh, input);
+dsh->counter += 1;
+free(input);
+}
+else
+{
+loop = 0;
+free(input);
+}
+}
 }
