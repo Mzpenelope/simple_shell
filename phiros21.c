@@ -1,40 +1,39 @@
-#include "main.h"
-
+#include "phiros.h"
 /**
- * get_error - calls the error according the builtin, syntax or permission
- * @datash: data structure that contains arguments
- * @eval: error value
+ * pr_get_error - calls the error according the builtin, syntax or permission
+ * @dsh: data structure that contains arguments
+ * @eva: error value
  * Return: error
  */
-int get_error(data_shell *datash, int eval)
+int pr_get_error(data_shell *dsh, int eva)
 {
-	char *error;
+	char *e;
 
-	switch (eval)
+	switch (eva)
 	{
 	case -1:
-		error = error_env(datash);
+		e = e_e(dsh);
 		break;
 	case 126:
-		error = error_path_126(datash);
+		e = e_p_126(dsh);
 		break;
 	case 127:
-		error = error_not_found(datash);
+		e = e_n_f(dsh);
 		break;
 	case 2:
-		if (_strcmp("exit", datash->args[0]) == 0)
-			error = error_exit_shell(datash);
-		else if (_strcmp("cd", datash->args[0]) == 0)
-			error = error_get_cd(datash);
+		if (pr_strcmp("exit", dsh->args[0]) == 0)
+			error = e_e_s(dsh);
+		else if (pr_strcmp("cd", dsh->args[0]) == 0)
+			error = e_g_cd(dsh);
 		break;
 	}
 
-	if (error)
+	if (e)
 	{
-		write(STDERR_FILENO, error, _strlen(error));
-		free(error);
+		write(STDERR_FILENO, e, pr_strlen(e));
+		free(e);
 	}
 
-	datash->status = eval;
-	return (eval);
+	dsh->status = eva;
+	return (eva);
 }
