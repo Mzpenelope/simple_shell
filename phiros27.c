@@ -1,105 +1,104 @@
-#include "main.h"
+#include "phiros.h"
 
 /**
- * swap_char - swaps | and & for non-printed chars
- *
+ * pr_swap_char - swaps | and & for non-printed chars
  * @input: input string
  * @bool: type of swap
  * Return: swapped string
  */
-char *swap_char(char *input, int bool)
+char *pr_swap_char(char *input, int bool)
 {
-	int i;
+int u;
 
-	if (bool == 0)
-	{
-		for (i = 0; input[i]; i++)
-		{
-			if (input[i] == '|')
-			{
-				if (input[i + 1] != '|')
-					input[i] = 16;
-				else
-					i++;
-			}
-
-			if (input[i] == '&')
-			{
-				if (input[i + 1] != '&')
-					input[i] = 12;
-				else
-					i++;
-			}
-		}
-	}
-	else
-	{
-		for (i = 0; input[i]; i++)
-		{
-			input[i] = (input[i] == 16 ? '|' : input[i]);
-			input[i] = (input[i] == 12 ? '&' : input[i]);
-		}
-	}
-	return (input);
+if (bool == 0)
+{
+u = 0;
+while (input[u])
+{
+if (input[u] == '|')
+{
+if (input[u + 1] != '|')
+input[u] = 16;
+else
+u++;
 }
 
+if (input[u] == '&')
+{
+if (input[u + 1] != '&')
+input[u] = 12;
+else
+u++;
+}
+u++;
+}
+}
+else
+{
+u = 0;
+while (input[u])
+{
+input[u] = (input[u] == 16 ? '|' : input[u]);
+input[u] = (input[u] == 12 ? '&' : input[u]);
+u++;
+}
+}
+return (input);
+}
 /**
- * add_nodes - add separators and command lines in the lists
- *
- * @head_s: head of separator list
- * @head_l: head of command lines list
+ * pr_add_nodes - add separators and command lines in the lists
+ * @hs: head of separator list
+ * @hl: head of command lines list
  * @input: input string
  * Return: no return
  */
-void add_nodes(sep_list **head_s, line_list **head_l, char *input)
+void pr_add_nodes(sep_list **hs, line_list **hl, char *input)
 {
-	int i;
+	int u;
 	char *line;
 
-	input = swap_char(input, 0);
+	input = pr_swap_char(input, 0);
 
-	for (i = 0; input[i]; i++)
+	for (u = 0; input[u]; u++)
 	{
-		if (input[i] == ';')
-			add_sep_node_end(head_s, input[i]);
+		if (input[u] == ';')
+			pr_add_sep_node_end(hs, input[u]);
 
-		if (input[i] == '|' || input[i] == '&')
+		if (input[u] == '|' || input[u] == '&')
 		{
-			add_sep_node_end(head_s, input[i]);
-			i++;
+			pr_add_sep_node_end(hs, input[u]);
+			u++;
 		}
 	}
 
-	line = _strtok(input, ";|&");
+	line = pr_strtok(input, ";|&");
 	do {
-		line = swap_char(line, 1);
-		add_line_node_end(head_l, line);
-		line = _strtok(NULL, ";|&");
+		line = pr_swap_char(line, 1);
+		pr_add_line_node_end(hl, line);
+		line = pr_strtok(NULL, ";|&");
 	} while (line != NULL);
 
 }
-
 /**
- * go_next - go to the next command line stored
- *
- * @list_s: separator list
- * @list_l: command line list
- * @datash: data structure
+ * pr_go_next - go to the next command line stored
+ * @l_s: separator list
+ * @l_l: command line list
+ * @dsh: data structure
  * Return: no return
  */
-void go_next(sep_list **list_s, line_list **list_l, data_shell *datash)
+void pr_go_next(sep_list **l_s, line_list **l_l, phiros_shell *dsh)
 {
 	int loop_sep;
 	sep_list *ls_s;
 	line_list *ls_l;
 
 	loop_sep = 1;
-	ls_s = *list_s;
-	ls_l = *list_l;
+	ls_s = *l_s;
+	ls_l = *l_l;
 
 	while (ls_s != NULL && loop_sep)
 	{
-		if (datash->status == 0)
+		if (dsh->status == 0)
 		{
 			if (ls_s->separator == '&' || ls_s->separator == ';')
 				loop_sep = 0;
@@ -117,95 +116,92 @@ void go_next(sep_list **list_s, line_list **list_l, data_shell *datash)
 			ls_s = ls_s->next;
 	}
 
-	*list_s = ls_s;
-	*list_l = ls_l;
+	*l_s = ls_s;
+	*l_l = ls_l;
 }
 
 /**
- * split_commands - splits command lines according to
+ * pr_split_commands - splits command lines according to
  * the separators ;, | and &, and executes them
- *
- * @datash: data structure
+ * @dsh: data structure
  * @input: input string
  * Return: 0 to exit, 1 to continue
  */
-int split_commands(data_shell *datash, char *input)
+int pr_split_commands(phiros_shell *dsh, char *input)
 {
 
-	sep_list *head_s, *list_s;
-	line_list *head_l, *list_l;
+	sep_list *h_s, *l_s;
+	line_list *h_l, *l_l;
 	int loop;
 
-	head_s = NULL;
-	head_l = NULL;
+	h_s = NULL;
+	h_l = NULL;
 
-	add_nodes(&head_s, &head_l, input);
+	pr_add_nodes(&h_s, &h_l, input);
 
-	list_s = head_s;
-	list_l = head_l;
+	l_s = h_s;
+	l_l = h_l;
 
-	while (list_l != NULL)
+	while (l_l != NULL)
 	{
-		datash->input = list_l->line;
-		datash->args = split_line(datash->input);
-		loop = exec_line(datash);
-		free(datash->args);
+		dsh->input = l_l->line;
+		dsh->args = pr_split_line(dsh->input);
+		loop = pr_exec_line(dsh);
+		free(dsh->args);
 
 		if (loop == 0)
 			break;
 
-		go_next(&list_s, &list_l, datash);
+		pr_go_next(&l_s, &l_l, dsh);
 
-		if (list_l != NULL)
-			list_l = list_l->next;
+		if (l_l != NULL)
+			l_l = l_l->next;
 	}
 
-	free_sep_list(&head_s);
-	free_line_list(&head_l);
+	pr_free_sep_list(&h_s);
+	pr_free_line_list(&h_l);
 
 	if (loop == 0)
 		return (0);
 	return (1);
 }
-
 /**
- * split_line - tokenizes the input string
- *
+ * pr_split_line - tokenizes the input string
  * @input: input string.
  * Return: string splitted.
  */
-char **split_line(char *input)
+char **pr_split_line(char *input)
 {
-	size_t bsize;
-	size_t i;
+	size_t bs;
+	size_t u;
 	char **tokens;
 	char *token;
 
-	bsize = TOK_BUFSIZE;
-	tokens = malloc(sizeof(char *) * (bsize));
+	bs = TOK_BUFSIZE;
+	tokens = malloc(sizeof(char *) * (bs));
 	if (tokens == NULL)
 	{
 		write(STDERR_FILENO, ": allocation error\n", 18);
 		exit(EXIT_FAILURE);
 	}
 
-	token = _strtok(input, TOK_DELIM);
+	token = pr_strtok(input, TOK_DELIM);
 	tokens[0] = token;
 
-	for (i = 1; token != NULL; i++)
+	for (u = 1; token != NULL; u++)
 	{
-		if (i == bsize)
+		if (u == bs)
 		{
-			bsize += TOK_BUFSIZE;
-			tokens = _reallocdp(tokens, i, sizeof(char *) * bsize);
+			bs += TOK_BUFSIZE;
+			tokens = pr_reallocdp(tokens, u, sizeof(char *) * bs);
 			if (tokens == NULL)
 			{
 				write(STDERR_FILENO, ": allocation error\n", 18);
 				exit(EXIT_FAILURE);
 			}
 		}
-		token = _strtok(NULL, TOK_DELIM);
-		tokens[i] = token;
+		token = pr_strtok(NULL, TOK_DELIM);
+		tokens[u] = token;
 	}
 
 	return (tokens);
