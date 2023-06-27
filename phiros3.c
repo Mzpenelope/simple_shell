@@ -1,23 +1,23 @@
-#include "main.h"
+#include "phiros.h"
 
 /**
- * aux_help_env - Help info for builtin env
+ * a_help_env - Help info for builtin env
  * Return: no return
  */
-void aux_help_env(void)
+void a_help_env(void)
 {
 	char *help = "env: env [option] [name=value] [command [args]]\n\t";
 
-	write(STDOUT_FILENO, help, _strlen(help));
+	write(STDOUT_FILENO, help, pr_strlen(help));
 	help = "Print the enviroment of the shell.\n";
 	write(STDOUT_FILENO, help, pr_strlen(help));
 
 }
 /**
- * aux_help_setenv - Help info for builtin setenv
+ * a_help_setenv - Help info for builtin setenv
  * Return: no return
  */
-void aux_help_setenv(void)
+void a_help_setenv(void)
 {
 
 	char *help = "setenv: setenv (const char *name, const char *value,";
@@ -29,10 +29,10 @@ void aux_help_setenv(void)
 	write(STDOUT_FILENO, help, pr_strlen(help));
 }
 /**
- * aux_help_unsetenv - Help info for builtin unsetenv
+ * a_help_unsetenv - Help info for builtin unsetenv
  * Return: no return
  */
-void aux_help_unsetenv(void)
+void a_help_unsetenv(void)
 {
 	char *help = "unsetenv: unsetenv (const char *name)\n\t";
 
@@ -43,10 +43,10 @@ void aux_help_unsetenv(void)
 
 
 /**
- * aux_help_general - Entry point for help info for help builtin
+ * a_help_general - Entry point for help info for help builtin
  * Return: no return
  */
-void aux_help_general(void)
+void a_help_general(void)
 {
 	char *help = "^-^ bash, version 1.0(1)-release\n";
 
@@ -65,10 +65,10 @@ void aux_help_general(void)
 	write(STDOUT_FILENO, help, pr_strlen(help));
 }
 /**
- * aux_help_exit - Help info for builint exit
+ * a_help_exit - Help info for builint exit
  * Return: no return
  */
-void aux_help_exit(void)
+void a_help_exit(void)
 {
 	char *help = "exit: exit [n]\n Exit shell.\n";
 
