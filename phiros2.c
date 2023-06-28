@@ -27,7 +27,7 @@ char *e_e(phiros_shell *dsh)
 	pr_strcat(e, ": ");
 	pr_strcat(e, v_s);
 	pr_strcat(e, ": ");
-	pr_strcat(e, ds->args[0]);
+	pr_strcat(e, dsh->args[0]);
 	pr_strcat(e, msg);
 	pr_strcat(e, "\0");
 	free(v_s);
