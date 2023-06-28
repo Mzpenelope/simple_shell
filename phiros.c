@@ -46,7 +46,7 @@ dsh->_environ[u] = pr_strdup(environ[u]);
 u++;
 }
 
-dsh->_environ[i] = NULL;
+dsh->_environ[u] = NULL;
 dsh->pid = pr_itoa(getpid());
 }
 /**
