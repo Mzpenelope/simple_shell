@@ -72,21 +72,15 @@ int pr_e_s_p(char *input, int u, char last)
  */
 int pr_first_char(char *input, int *u)
 {
-	int u = 0;
-	while (input[u])
+	for (*u = 0; input[*u]; *u += 1)
 	{
-		if (input[u] == ' ' || input[u] == '\t')
-	{
-	continue;
-	}
+		if (input[*u] == ' ' || input[*u] == '\t')
+			continue;
 
-	if (input[u] == ';' || input[u] == '|' || input[u] == '&')
-	{
-	return (-1);
-	}
+		if (input[*u] == ';' || input[*u] == '|' || input[*u] == '&')
+			return (-1);
 
-	break;
-	u++;
+		break;
 	}
 
 	return (0);
