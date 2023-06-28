@@ -34,7 +34,7 @@ char *pr_getenv(const char *name, char **_environ)
 
 	ptr_env = NULL;
 	mov = 0;
-	
+
 	for (n = 0; _environ[n]; n++)
 	{
 		mov = pr_cmp_env_name(_environ[n], name);
