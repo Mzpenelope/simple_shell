@@ -123,7 +123,7 @@ void pr_cd_previous(phiros_shell *dsh)
 
 /**
  * pr_cd_to_home - changes to home directory
- * @datash: data relevant (environ)
+ * @dsh: data relevant (environ)
  * Return: no return
  */
 void pr_cd_to_home(phiros_shell *dsh)
