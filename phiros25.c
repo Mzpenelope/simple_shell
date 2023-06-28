@@ -36,7 +36,7 @@ void pr_check_env(r_var **h, char *in, phiros_shell *data)
 			break;
 	}
 
-	pr_add_rvar_node(h, j, NULL, 0);
+	pr_add_rvar_node(h, k, NULL, 0);
 }
 /**
  * pr_check_vars - check if the typed variable is $$ or $?
