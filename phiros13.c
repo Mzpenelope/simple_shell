@@ -16,7 +16,7 @@ int pr_cd_shell(phiros_shell *dsh)
 	{
 		ie = pr_strcmp("$HOME", d);
 		i2 = pr_strcmp("~", d);
-		ih = pr_strcmp("--", di);
+		ih = pr_strcmp("--", d);
 	}
 
 	if (d == NULL || !ie || !i2 || !ih)
