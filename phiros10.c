@@ -77,7 +77,7 @@ if (string != NULL)
 if (compare_chars(string, delim))
 return (NULL);
 split = string; /*Store first address*/
-i = pr_strlen(string);
+u = pr_strlen(string);
 string_end = &string[u]; /*Store last address*/
 }
 string_start = split;
