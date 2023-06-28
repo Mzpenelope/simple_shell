@@ -9,7 +9,7 @@
 int repeat_char(char *input, int u)
 {
 	if (*(input - 1) == *input)
-		return (repeated_char(input - 1, u + 1));
+		return (repeat_char(input - 1, u + 1));
 
 	return (u);
 }
@@ -71,23 +71,26 @@ int pr_e_s_p(char *input, int u, char last)
  * Return: 1 if there is an error. 0 in other case.
  */
 int pr_first_char(char *input, int *u)
-int u = 0;
-while (input[u])
 {
-if (input[u] == ' ' || input[u] == '\t')
-{
-continue;
-}
+	int u = 0;
+	while (input[u])
+	{
+		if (input[u] == ' ' || input[u] == '\t')
+	{
+	continue;
+	}
 
-if (input[u] == ';' || input[u] == '|' || input[u] == '&') {
-return (-1);
-}
+	if (input[u] == ';' || input[u] == '|' || input[u] == '&')
+	{
+	return (-1);
+	}
 
-break;
-u++;
-}
+	break;
+	u++;
+	}
 
-return (0);
+	return (0);
+}
 /**
  * p_s_e - prints when a syntax error is found
  * @dsh: data structure
