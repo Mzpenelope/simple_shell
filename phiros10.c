@@ -121,8 +121,8 @@ u = 0;
 while (s[u])
 {
 if (s[u] < 48 || s[u] > 57)
-return 0;
+return (0);
 u++;
 }
-return 1;
+return (1);
 }
