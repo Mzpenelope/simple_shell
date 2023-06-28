@@ -30,9 +30,9 @@ void pr_check_env(r_var **h, char *in, phiros_shell *data)
 		}
 	}
 
-	for (j = 0; in[j]; j++)
+	for (k = 0; in[k]; k++)
 	{
-		if (in[j] == ' ' || in[j] == '\t' || in[j] == ';' || in[j] == '\n')
+		if (in[k] == ' ' || in[k] == '\t' || in[k] == ';' || in[k] == '\n')
 			break;
 	}
 
