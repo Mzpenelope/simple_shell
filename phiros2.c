@@ -1,6 +1,6 @@
 #include "phiros.h"
 /**
- * error_env - the error info for env in get_env.
+ * e_e - the error info for env in get_env.
  * @dsh: data relevant (counter, arguments)
  * Return: an error message.
  */
