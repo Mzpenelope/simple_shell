@@ -134,7 +134,7 @@ void pr_cd_to_home(phiros_shell *dsh)
 	getcwd(pwd, sizeof(pwd));
 	p_pwd = pr_strdup(pwd);
 
-	home = pr_getenv("HOME", sh->_environ);
+	home = pr_getenv("HOME", dsh->_environ);
 
 	if (home == NULL)
 	{
