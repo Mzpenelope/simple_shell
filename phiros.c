@@ -46,12 +46,12 @@ dsh->_environ[u] = NULL;
 dsh->pid = pr_itoa(getpid());
 }
 /**
- * phiros - Entry point
+ * main - Entry point
  * @ac: argument count
  * @av: argument vector
  * Return: 0 on success.
  */
-int phiros(int ac, char **av)
+int main(int ac, char **av)
 {
 	phiros_shell dsh;
 	(void) ac;
