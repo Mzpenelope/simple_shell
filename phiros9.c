@@ -2,7 +2,7 @@
 /**
  * pr_strcat - concatenates two strings
  * @dest: char pointer the dest of the copied string
- * @src: const char pointer the source of string 
+ * @src: const char pointer the source of string
  * Return: dest
  */
 char *pr_strcat(char *dest, const char *src)
