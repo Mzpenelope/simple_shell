@@ -20,7 +20,7 @@ void pr_bring_line(char **lptr, size_t *i, char *buffer, size_t k)
 	}
 	else if (*i < k)
 	{
-		if (j > BUFSIZE)
+		if (k > BUFSIZE)
 			*i = k;
 		else
 			*i = BUFSIZE;
