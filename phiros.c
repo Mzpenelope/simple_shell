@@ -32,18 +32,14 @@ dsh->args = NULL;
 dsh->status = 0;
 dsh->counter = 1;
 
-while (environ[u])
-{
-u++;
-}
+for (u = 0; environ[u]; u++)
+;
 
 dsh->_environ = malloc(sizeof(char *) * (u + 1));
 
-int u = 0;
-while (environ[u])
+for (u = 0; environ[u]; u++)
 {
 dsh->_environ[u] = pr_strdup(environ[u]);
-u++;
 }
 
 dsh->_environ[u] = NULL;
