@@ -39,7 +39,7 @@ r_var *pr_add_rvar_node(r_var **head, int lvar, char *val, int lval)
 }
 
 /**
- * free_rvar_list - frees up a r_var list
+ * pr_free_rvar_list - frees up a r_var list
  * @head: head of linked list.
  * Return: no return.
  */
